@@ -25,8 +25,11 @@ def getid():
 def makecard():
     requestinput = request.get_json()
     print(requestinput)
-    id = requestinput["id"]
-    title = requestinput["title"]
-    description = requestinput["description"]
-    difficulty = requestinput["difficulty"]
+    if requestinput["id"] and requestinput["title"] and requestinput["description"] and requestinput["difficulty"]:
+        id = requestinput["id"]
+        title = requestinput["title"]
+        description = requestinput["description"]
+        difficulty = requestinput["difficulty"]
+    else:
+        return "missingkey"
     return "success"
