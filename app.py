@@ -14,6 +14,12 @@ cards = database["cards"]
 
 idlength = 16
 
+class CardSchema(Schema):
+    id = fields.String(required=True)
+    difficulty = fields.Integer(required=True)
+    description = fields.String(required=True)
+    title = fields.String(required=True)
+
 @app.route("/api/getid", methods=["POST", "GET"])
 def getid():
     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
@@ -25,12 +31,18 @@ def getid():
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
     requestinput = request.get_json()
+    validationschema = CardSchema()
+    try:
+        validationresult = validationschema.load(requestinput)
+    except ValidationError as err:
+        return "keyschemavalidationerror", 400
     print(requestinput)
-    if requestinput["id"] and requestinput["title"] and requestinput["description"] and requestinput["difficulty"]:
-        id = requestinput["id"]
-        title = requestinput["title"]
-        description = requestinput["description"]
-        difficulty = requestinput["difficulty"]
-    else:
-        return "missingkey"
+    id = requestinput["id"]
+    title = requestinput["title"]
+    description = requestinput["description"]
+    difficulty = int(requestinput["difficulty"])
+    if not difficulty <= 10 or not difficulty > 0:
+        return "difficultyvalueerror", 400
+    if len(id) != 16:
+        return "idlengtherror", 400
     return "success"
