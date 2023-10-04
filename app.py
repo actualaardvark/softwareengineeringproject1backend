@@ -16,12 +16,11 @@ class CardSchema(Schema):
     description = fields.String(required=True)
     title = fields.String(required=True)
 
-@app.route("/api/getid", methods=["POST", "GET"])
+@app.route("/api/getid", methods=["POST"])
 def getid():
     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    print(id)
-    print(cards.find_one({'id': id}))
-        #id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength))
+    while db.find(id):
+        id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     return id
 
 @app.route("/api/makecard",methods=["POST"])
