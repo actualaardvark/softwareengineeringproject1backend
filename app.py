@@ -1,16 +1,12 @@
 from flask import Flask, request
-from pymongo import MongoClient
+from tinydb import TinyDB, Query
 from marshmallow import Schema, fields, ValidationError
 import random
 import string
 
 app = Flask(__name__)
 
-mongoclient = MongoClient()
-
-database = mongoclient["db"]
-
-cards = database["cards"]
+db = TinyDB('db.json')
 
 idlength = 16
 
@@ -45,4 +41,14 @@ def makecard():
         return "difficultyvalueerror", 400
     if len(id) != 16:
         return "idlengtherror", 400
+    try:
+        db.insert({
+            "id": id,
+            "title": title,
+            "description": title,
+            "difficulty": difficulty
+        })
+    except:
+        return "databasewriteerror", 500
+
     return "success"
