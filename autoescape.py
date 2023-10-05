@@ -1,0 +1,1 @@
+print("\n\n" + str(input("Insert Command: ")).replace('"', r'\"'))
