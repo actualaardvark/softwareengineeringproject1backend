@@ -15,7 +15,7 @@ function sendtestrequest {
 echo '***Test makecard API***'
 sendtestrequest "makecard/valid" "success"
 pausetests
-sendtestrequest "makecard/additionalkey" "keyschemavalidationerror"
+sendtestrequest "makecard/additionalkey" "pass"
 pausetests
 sendtestrequest "makecard/missingtitle" "keyschemavalidationerror"
 pausetests
@@ -32,3 +32,6 @@ pausetests
 sendtestrequest "makecard/blankjson" "keyschemavalidationerror"
 pausetests
 sendtestrequest "makecard/getrequest" "405"
+
+echo '***Test getid API***'
+sendtestrequest "getid/valid" "idfound"

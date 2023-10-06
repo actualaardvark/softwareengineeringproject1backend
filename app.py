@@ -19,7 +19,8 @@ class CardSchema(Schema):
 @app.route("/api/getid", methods=["POST"])
 def getid():
     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    while db.find(id):
+    search = Query()
+    while db.search(search.id == id):
         id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     return id
 
