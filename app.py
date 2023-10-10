@@ -15,6 +15,9 @@ class CardSchema(Schema):
     difficulty = fields.Integer(required=True)
     description = fields.String(required=True)
     title = fields.String(required=True)
+class RemoveCardSchema(Schema):
+    id = fields.String(required=True)
+
 
 @app.route("/api/getid", methods=["POST"])
 def getid():
@@ -23,6 +26,18 @@ def getid():
     while db.search(search.id == id):
         id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     return id
+@app.route("/api/removecard", methods=["POST"])
+def removecard():
+    requestinput = request.get_json()
+    validationschema = RemoveCardSchema()
+    try:
+        validationresult = validationschema.load(requestinput)
+    except ValidationError as err:
+        return "keyschemavalidationerror", 400
+    if len(requestinput["id"]) != 16:
+        return "idlengtherror", 400
+    db.remove(where('id') == requestinput["id"])
+    return "success"
 
 @app.route("/api/getcards", methods=["POST"])
 def getcards():

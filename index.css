@@ -1,0 +1,103 @@
+:root{
+    --bg-color: #191919;
+    --card-bg-color: #232323;
+    --card-title-text-color: #f2f2f2;
+}
+body{
+    background: var(--bg-color);
+    background-image: radial-gradient(var(--card-bg-color) 1px, transparent 0);
+    background-size: 40px 40px;
+    background-position: -19px -19px;
+}
+.taskcard{
+    float: bottom;
+    background-color: var(--card-bg-color);
+    filter: drop-shadow(0px 0px 14px #000000);
+    width: 16%;
+    padding: 2%;
+    position: relative;
+    margin: 2%;
+}
+.taskcardtitle{
+    color: var(--card-title-text-color);
+    font-size: 3em;
+    font-family: 'TranspassRegular';
+    font-weight: bold;
+    font-style: normal; 
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+.taskcarddescription{
+    color: var(--card-title-text-color);
+    font-size: 1em;
+    font-family: 'TranspassRegular';
+    font-weight: normal;
+    font-style: normal; 
+    margin-top: 0%;
+}
+.taskcarddifficulty{
+    color: var(--card-title-text-color);
+    font-family: 'BloggerSansMedium';
+    font-weight: normal;
+    font-style: normal; 
+    font-size: 12em;
+    text-align: center;
+    margin-bottom: -10%;
+    border-radius: 50%;
+}
+.taskcardeditbutton{
+    font-family: 'BloggerSansMedium';
+    font-weight: normal;
+    font-style: normal; 
+    color: var(--card-title-text-color);
+    font-size: 2em;
+    width: 45%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: var(--card-title-text-color);
+    /* Center vertically and horizontally */
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    margin: -25px 0 0 -25px;
+}
+.taskcardclearbutton{
+    font-family: 'BloggerSansMedium';
+    font-weight: normal;
+    font-style: normal; 
+    color: var(--card-title-text-color);
+    font-size: 2em;
+    width: 45%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: var(--card-title-text-color);
+    /* Center vertically and horizontally */
+    position: absolute;
+    top: 62.5%;
+    left: 35%;
+    margin: -25px 0 0 -25px;
+}
+.taskcardbutton{
+    display: none;
+    z-index: 10;
+}
+.taskcardbutton:hover{
+    cursor: pointer;
+    background-color: var(--card-title-text-color);
+    color: var(--bg-color);
+}
+.taskcard:hover .taskcardbutton{
+    display: table;
+}
+.taskcard:hover .blurcontainer{
+    filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
+}
+.taskcard:hover .taskcardcontent{
+    pointer-events: none;
+}
