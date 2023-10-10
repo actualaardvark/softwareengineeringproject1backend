@@ -24,6 +24,10 @@ def getid():
         id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     return id
 
+@app.route("/api/getcards", methods=["POST"])
+def getcards():
+    return db.all()
+
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
     requestinput = request.get_json()
@@ -41,6 +45,9 @@ def makecard():
         return "difficultyvalueerror", 400
     if len(id) != 16:
         return "idlengtherror", 400
+    search = Query()
+    if db.search(search.id == id):
+        return "invalididerror", 400
     try:
         db.insert({
             "id": id,
@@ -50,5 +57,4 @@ def makecard():
         })
     except:
         return "databasewriteerror", 500
-
     return "success"

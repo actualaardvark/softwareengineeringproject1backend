@@ -34,4 +34,8 @@ pausetests
 sendtestrequest "makecard/getrequest" "405"
 
 echo '***Test getid API***'
-sendtestrequest "getid/valid" "idfound"
+sendtestrequest "getid/correctlengthcheck" "pass"
+pausetests
+sendtestrequest "getid/onlynumberscheck" "pass"
+pausetests
+sendtestrequest "getid/onlytextcheck" "pass"
