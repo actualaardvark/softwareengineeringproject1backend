@@ -42,7 +42,9 @@ def removecard():
     if len(requestinput["id"]) != 16:
         return "idlengtherror", 400
     print(requestinput)
-    db.remove(where("id") == requestinput["id"])
+    with transaction(db) as tr:
+        tr.remove(where("id") == requestinput["id"])
+    
     return "success"
 
 @app.route("/api/getcards", methods=["POST"])
@@ -74,13 +76,11 @@ def makecard():
     search = Query()
     if db.search(search.id == id):
         return "invalididerror", 400
-    try:
-        db.insert({
+    with transaction(db) as tr:
+        tr.insert({
             "id": id,
             "title": title,
             "description": title,
             "difficulty": difficulty
         })
-    except:
-        return "databasewriteerror", 500
     return "success"

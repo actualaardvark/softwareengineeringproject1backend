@@ -9,9 +9,9 @@ async function getCards(){
     }
 }
 
-var removeCard = function(element){
+async function removeCard(element){
     console.log(element.parentElement.id)
-    var removeCardTarget = fetch("http://127.0.0.1:5000/api/removecard", {
+    var removeCardTarget = await fetch("http://127.0.0.1:5000/api/removecard", {
         method: "POST",
         body: JSON.stringify({
             id: element.parentElement.id
