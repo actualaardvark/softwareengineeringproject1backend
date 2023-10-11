@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, jsonify
 from tinydb import TinyDB, Query
 from marshmallow import Schema, fields, ValidationError
 import random
@@ -18,6 +18,9 @@ class CardSchema(Schema):
 class RemoveCardSchema(Schema):
     id = fields.String(required=True)
 
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 @app.route("/api/getid", methods=["POST"])
 def getid():
@@ -28,6 +31,7 @@ def getid():
     return id
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
+    search = Query()
     requestinput = request.get_json()
     validationschema = RemoveCardSchema()
     try:
@@ -36,12 +40,18 @@ def removecard():
         return "keyschemavalidationerror", 400
     if len(requestinput["id"]) != 16:
         return "idlengtherror", 400
-    db.remove(where('id') == requestinput["id"])
+    print(requestinput)
+    db.remove(search.id == requestinput["id"])
     return "success"
 
 @app.route("/api/getcards", methods=["POST"])
 def getcards():
-    return db.all()
+    data = db.all()
+    output = {
+        "cards": data
+    }
+    print(jsonify(output))
+    return jsonify(output)
 
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
