@@ -1,8 +1,9 @@
 from flask import Flask, request, render_template, jsonify
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 from marshmallow import Schema, fields, ValidationError
 import random
 import string
+from tinyrecord import transaction
 
 app = Flask(__name__)
 
@@ -41,7 +42,7 @@ def removecard():
     if len(requestinput["id"]) != 16:
         return "idlengtherror", 400
     print(requestinput)
-    db.remove(search.id == requestinput["id"])
+    db.remove(where("id") == requestinput["id"])
     return "success"
 
 @app.route("/api/getcards", methods=["POST"])
