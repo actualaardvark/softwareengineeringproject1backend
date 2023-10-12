@@ -8,9 +8,11 @@ body{
     background-image: radial-gradient(var(--card-bg-color) 1px, transparent 0);
     background-size: 40px 40px;
     background-position: -19px -19px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .taskcard{
-    float: bottom;
     background-color: var(--card-bg-color);
     filter: drop-shadow(0px 0px 14px #000000);
     width: 16%;
