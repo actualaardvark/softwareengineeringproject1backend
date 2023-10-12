@@ -3,7 +3,7 @@
     --card-bg-color: #232323;
     --card-title-text-color: #f2f2f2;
 }
-body{
+body, body > span{
     background: var(--bg-color);
     background-image: radial-gradient(var(--card-bg-color) 1px, transparent 0);
     background-size: 40px 40px;
@@ -23,6 +23,7 @@ body{
 .taskcardtitle{
     color: var(--card-title-text-color);
     font-size: 3em;
+    font-size: 2vw;
     font-family: 'TranspassRegular';
     font-weight: bold;
     font-style: normal; 
@@ -32,6 +33,7 @@ body{
 .taskcarddescription{
     color: var(--card-title-text-color);
     font-size: 1em;
+    font-size: 1vw;
     font-family: 'TranspassRegular';
     font-weight: normal;
     font-style: normal; 
@@ -42,7 +44,8 @@ body{
     font-family: 'BloggerSansMedium';
     font-weight: normal;
     font-style: normal; 
-    font-size: 12em;
+    font-size: 8em;
+    font-size: 12vw;
     text-align: center;
     margin-bottom: -10%;
     border-radius: 50%;
