@@ -12,6 +12,13 @@ body, body > span{
     flex-direction: row;
     flex-wrap: wrap;
 }
+.priorityheader{
+    font-size: 16vw; 
+    text-decoration: underline; 
+    margin-bottom: 0; 
+    font-family: 'BloggerSansMedium'; 
+    color:var(--card-title-text-color);
+}
 .taskcard{
     background-color: var(--card-bg-color);
     filter: drop-shadow(0px 0px 14px #000000);
