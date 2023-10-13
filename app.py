@@ -3,7 +3,6 @@ from tinydb import TinyDB, Query, where
 from marshmallow import Schema, fields, ValidationError
 import random
 import string
-from tinyrecord import transaction
 
 app = Flask(__name__)
 
