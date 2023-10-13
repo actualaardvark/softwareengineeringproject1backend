@@ -5,13 +5,12 @@ async function getCards(){
     console.log(data);
     carddata = []
     for (let i = 0; i < data["cards"].length; i++) {
-        console.log(data["cards"][i])
-        carddata += data["cards"][i]
+        carddata.push(data["cards"][i])
         //document.getElementById('body').innerHTML += '<div class="taskcard" id="' + data["cards"][i]["id"] + '"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ data["cards"][i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + data["cards"][i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + data["cards"][i]["description"] + '</p></div></div>';
     }
-    console.log(carddata)
     for (let i = 0; i < carddata.length; i++) {
-        document.getElementById('body').innerHTML += '<div class="taskcard" id="' + data["cards"][i]["id"] + '"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ data["cards"][i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + data["cards"][i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + data["cards"][i]["description"] + '</p></div></div>';
+        console.log(carddata)
+        document.getElementById('body').innerHTML += '<div class="taskcard" id="' + carddata[i]["id"] + '"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
     }
 }
 
