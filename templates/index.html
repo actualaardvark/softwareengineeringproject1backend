@@ -7,13 +7,26 @@
     <meta charset="UTF-8">
 </head>
     <body>
-        <div class="modal" id="editmodal">
+        <div class="modal" id="modal">
             <div class="modal-content">
-                <p>Example Text</p>
+                <span class="close" onclick="hideModal()">&times;</span>
+                <h2>Title</h2>
+                <textarea id="titleinput"></textarea>
+                <h2>Difficulty (1-10)</h2>
+                <textarea type="numeral" maxlength="2" id="difficultyinput"></textarea>
+                <h2>Description</h2>
+                <textarea id="descriptioninput"></textarea>
+                <br>
+                <div class="modal-save-button"><button onclick="saveCard()">Save Card</button></div>
+                
             </div>
         </div>
         <div class="prioritycontainer" id="priority">
-            <h1 class="priorityheader">Tasks:</h1>
+            <h1 class="priorityheader">Priority:</h1>
+        </div>
+        <div id="donemessage" class="donemessage">
+            <h1>All Done!</h1>
+            <h2>Click the + Icon to Create a New Task</h2>
         </div>
         <div id="body" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;"></div>
         <button class="createcard" onclick="createCard()">+</button>

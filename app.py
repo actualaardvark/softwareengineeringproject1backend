@@ -29,7 +29,9 @@ def getid():
     search = Query()
     while db.search(search.id == id):
         id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    return id
+    output = {"id": id}
+    print(output)
+    return jsonify(output)
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
     search = Query()
@@ -44,7 +46,6 @@ def removecard():
     print(requestinput)
     with transaction(db) as tr:
         tr.remove(where("id") == requestinput["id"])
-    
     return "success"
 
 @app.route("/api/getcards", methods=["POST"])
@@ -63,6 +64,7 @@ def makecard():
     try:
         validationresult = validationschema.load(requestinput)
     except ValidationError as err:
+        print("keyschemavalidationerror")
         return "keyschemavalidationerror", 400
     print(requestinput)
     id = requestinput["id"]
@@ -70,11 +72,14 @@ def makecard():
     description = requestinput["description"]
     difficulty = int(requestinput["difficulty"])
     if not difficulty <= 10 or not difficulty > 0:
+        print("difficultyvalueerror")
         return "difficultyvalueerror", 400
     if len(id) != 16:
+        print("idlengtherror")
         return "idlengtherror", 400
     search = Query()
     if db.search(search.id == id):
+        print("invalididerror")
         return "invalididerror", 400
     with transaction(db) as tr:
         tr.insert({
