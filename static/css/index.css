@@ -136,6 +136,27 @@ body, body > span{
 .taskcard:hover .blurcontainer{
     filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
 }
+.blurlock .blurcontainer{
+    filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
+    pointer-events: visible;
+}
+.blurlock {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+.blurlock > svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 24vh;
+    height: 24vw;
+    z-index: 15;
+}
+.blurlock .buttoncontainer{
+    display: none;
+}
 .taskcard:hover .taskcardcontent{
     pointer-events: none;
 }
@@ -175,6 +196,7 @@ body, body > span{
 }
 
 .modal-content {
+    min-height: 680px;
     flex-direction: column;
     background-color: var(--card-bg-color);
     margin: 6% auto;
@@ -223,6 +245,7 @@ body, body > span{
     text-align: center;
 }
 .modal-save-button > button{
+    min-height: 42px;
     margin: auto;
     width: 10vw;
     height: 5vh;

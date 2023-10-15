@@ -111,9 +111,6 @@ def editcard():
         print("idlengtherror")
         return jsonify({"error":"idlengtherror"}), 400
     search = Query()
-    if db.search(search.id == id):
-        print("invalididerror")
-        return jsonify({"error":"invalididerror"}), 400
     with transaction(db) as tr:
         tr.remove(where("id") == requestinput["id"])
         tr.insert({

@@ -16,6 +16,7 @@
             </div>
         </div>
         <div class="modal" id="modal">
+            <span id="idattach" style="display:none"></span>
             <div class="modal-content">
                 <span class="close" onclick="hideModal()">&times;</span>
                 <h2>Title (32 Characters)</h2>
@@ -25,8 +26,26 @@
                 <h2>Description (120 Characters)</h2>
                 <textarea id="descriptioninput" maxlength="120"></textarea>
                 <br>
-                <div class="modal-save-button"><button onclick="saveCard()">Save Card</button></div>
-                
+                <div class="modal-save-button"><button id="modalsave" onclick="saveCard()">Save Card</button></div>
+            </div>
+        </div>
+        <div class="modal" id="energymodal" style="display: flex;">
+            <span style="display:none"></span>
+            <div class="modal-content">
+                <h2>Energy Level (1-99)</h2>
+                <h2>1 means no energy to make descisions.</h2>
+                <h2>99 means peak energy levels.</h2>
+                <textarea id="spoonsinput" maxlength="2"></textarea>
+                <br>
+                <div class="modal-save-button"><button id="energymodalsave" onclick="saveEnergy()">Save</button></div>
+            </div>
+        </div>
+        <div class="modal" id="warningmodal">
+            <span id="warningidattach" style="display:none"></span>
+            <div class="modal-content" style="text-align: center; display: flex; justify-content: center;">
+                <h2 style="margin-bottom: 10%;">You are unlocking a task that is above your remaining energy level. Are you sure you want to do this?</h2>
+                <br>
+                <div class="modal-save-button"><button id="modalsave" onclick="unlockCardById(this.parentElement.parentElement.parentElement)" style="height: 12vh;">Yes, I'm Sure</button><button id="modalsave" style="height: 12vh;" onclick="document.getElementById('warningmodal').style.display='none'">No, I'm Good</button></div>
             </div>
         </div>
         <div class="prioritycontainer" id="priority">
