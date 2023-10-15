@@ -65,7 +65,7 @@ def makecard():
         validationresult = validationschema.load(requestinput)
     except ValidationError as err:
         print("keyschemavalidationerror")
-        return "keyschemavalidationerror", 400
+        return jsonify({"error":"keyschemavalidationerror"}), 400
     print(requestinput)
     id = requestinput["id"]
     title = requestinput["title"]
@@ -73,14 +73,14 @@ def makecard():
     difficulty = int(requestinput["difficulty"])
     if not difficulty <= 10 or not difficulty > 0:
         print("difficultyvalueerror")
-        return "difficultyvalueerror", 400
+        return jsonify({"error":"difficultyvalueerror"}), 400
     if len(id) != 16:
         print("idlengtherror")
-        return "idlengtherror", 400
+        return jsonify({"error":"idlengtherror"}), 400
     search = Query()
     if db.search(search.id == id):
         print("invalididerror")
-        return "invalididerror", 400
+        return jsonify({"error":"invalididerror"}), 400
     with transaction(db) as tr:
         tr.insert({
             "id": id,
