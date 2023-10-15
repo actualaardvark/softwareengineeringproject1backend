@@ -15,7 +15,6 @@ async function getCards(){
         carddata.push(data["cards"][i])
     }
     for (let i = 0; i < carddata.length; i++) {
-        // console.log(carddata)
         if (i != priorityindex){
             document.getElementById('body').innerHTML += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
         } else {
