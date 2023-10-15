@@ -13,6 +13,7 @@ async function getCards(){
         }
         carddata.push(data["cards"][i])
     }
+
     var documentbody = ""
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){

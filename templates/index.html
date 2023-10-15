@@ -18,12 +18,12 @@
         <div class="modal" id="modal">
             <div class="modal-content">
                 <span class="close" onclick="hideModal()">&times;</span>
-                <h2>Title</h2>
-                <textarea id="titleinput"></textarea>
+                <h2>Title (16 Characters)</h2>
+                <textarea id="titleinput" maxlength="16"></textarea>
                 <h2>Difficulty (1-10)</h2>
                 <textarea type="numeral" maxlength="2" id="difficultyinput"></textarea>
-                <h2>Description</h2>
-                <textarea id="descriptioninput"></textarea>
+                <h2>Description (120 Characters)</h2>
+                <textarea id="descriptioninput" maxlength="120"></textarea>
                 <br>
                 <div class="modal-save-button"><button onclick="saveCard()">Save Card</button></div>
                 

@@ -165,7 +165,7 @@ body, body > span{
 .modal {
     display: none;
     position: fixed;
-    z-index: 12;
+    z-index: 13;
     left: 0;
     top: 0;
     width: 100%;
@@ -261,10 +261,11 @@ body, body > span{
     height: 100%;
 }
 .errorcontainer{
+    pointer-events: none;
     display: flex;
     flex-direction: column;
     width: 48%;
-    z-index: 20;
+    z-index: 12;
     filter: drop-shadow(0px 0px 14px #000000);
     background-color: var(--card-bg-color);
     color: var(--card-title-text-color);
@@ -278,6 +279,7 @@ body, body > span{
     font-family: 'TranspassRegular';
 }
 .errorwrapper{
+    pointer-events: none;
     display: flex;
     width: 100%;
     align-items: center;
@@ -288,19 +290,23 @@ body, body > span{
 .slide-up > div, .slide-down > div {
     transform: translateY(-100%);
     transition: .4s ease-in-out;
+    pointer-events: none;
 }
 .slide-down > div {            
     transform: translateY(0);
+    pointer-events: none;
 } 
 .slide-up, .slide-down {
     overflow:hidden;
+    pointer-events: none;
 }
 .errorslider{
-    z-index: 20;
+    z-index: 12;
     width: 100%;
     display: none;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    pointer-events: none;
 }
