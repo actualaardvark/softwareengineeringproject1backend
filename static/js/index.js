@@ -56,7 +56,9 @@ async function removeCard(element){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("errorslider").classList.toggle("slide-up");
     document.getElementById("priority").style.display = "none";
+    document.getElementById("errorslider").style.display = "flex";
     getCards();
 });
 
@@ -95,9 +97,43 @@ async function saveCard(){
             "Content-type": "application/json; charset=UTF-8"
         }
     });
+    try{
+        var outputjson = await output.json();
+    } catch {
+        console.log("success");
+    }
+    console.log(outputjson)
     console.log(output);
     getCards();
     hideModal();
+    if (outputjson["error"] == "keyschemavalidationerror"){
+        document.getElementById("errortitle").innerText = "Key Schema Error";
+        document.getElementById("errordescription").innerText = "The programmer made an error. If you are seeing this, message them online for a fix.";
+        document.getElementById("errorslider").style.display = "flex";
+        document.getElementById("errorslider").classList.toggle("slide-down");
+        setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
+    }
+    if (outputjson["error"] == "idlengtherror"){
+        document.getElementById("errortitle").innerText = "ID Length Error";
+        document.getElementById("errordescription").innerText = "The programmer made an error. If you are seeing this, message them online for a fix.";
+        document.getElementById("errorslider").style.display = "flex";
+        document.getElementById("errorslider").classList.toggle("slide-down");
+        setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
+    }
+    if (outputjson["error"] == "difficultyvalueerror"){
+        document.getElementById("errortitle").innerText = "Invalid Difficulty";
+        document.getElementById("errordescription").innerText = "Make sure your selected difficulty is between 1 and 10";
+        document.getElementById("errorslider").style.display = "flex";
+        document.getElementById("errorslider").classList.toggle("slide-down");
+        setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
+    }
+    if (outputjson["error"] == "invalididerror"){
+        document.getElementById("errortitle").innerText = "ID Validation Error";
+        document.getElementById("errordescription").innerText = "The programmer made an error. If you are seeing this, message them online for a fix.";
+        document.getElementById("errorslider").style.display = "flex";
+        document.getElementById("errorslider").classList.toggle("slide-down");
+        setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
+    }
 }
 
 async function editCard(){
