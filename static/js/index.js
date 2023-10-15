@@ -109,7 +109,7 @@ async function saveCard(){
     hideModal();
     if (outputjson["error"] == "keyschemavalidationerror"){
         document.getElementById("errortitle").innerText = "Key Schema Error";
-        document.getElementById("errordescription").innerText = "The programmer made an error. If you are seeing this, message them online for a fix.";
+        document.getElementById("errordescription").innerText = "Make sure you filled in all of the form fields. If this issues persists, contact the developer.";
         document.getElementById("errorslider").style.display = "flex";
         document.getElementById("errorslider").classList.toggle("slide-down");
         setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
