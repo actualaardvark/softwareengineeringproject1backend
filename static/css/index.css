@@ -64,8 +64,7 @@ body, body > span{
 }
 .taskcardtitle{
     color: var(--card-title-text-color);
-    font-size: 3em;
-    font-size: 2vw;
+    font-size: 1.6vw;
     font-family: 'TranspassRegular';
     font-weight: bold;
     font-style: normal; 

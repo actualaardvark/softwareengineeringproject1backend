@@ -89,3 +89,37 @@ def makecard():
             "difficulty": difficulty
         })
     return "success"
+
+@app.route("/api/editcard",methods=["POST"])
+def editcard():
+    requestinput = request.get_json()
+    validationschema = CardSchema()
+    try:
+        validationresult = validationschema.load(requestinput)
+    except ValidationError as err:
+        print("keyschemavalidationerror")
+        return jsonify({"error":"keyschemavalidationerror"}), 400
+    print(requestinput)
+    id = requestinput["id"]
+    title = requestinput["title"]
+    description = requestinput["description"]
+    difficulty = int(requestinput["difficulty"])
+    if not difficulty <= 10 or not difficulty > 0:
+        print("difficultyvalueerror")
+        return jsonify({"error":"difficultyvalueerror"}), 400
+    if len(id) != 16:
+        print("idlengtherror")
+        return jsonify({"error":"idlengtherror"}), 400
+    search = Query()
+    if db.search(search.id == id):
+        print("invalididerror")
+        return jsonify({"error":"invalididerror"}), 400
+    with transaction(db) as tr:
+        tr.remove(where("id") == requestinput["id"])
+        tr.insert({
+            "id": id,
+            "title": title,
+            "description": description,
+            "difficulty": difficulty
+        })
+    return "success"
