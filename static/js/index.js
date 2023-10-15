@@ -13,7 +13,6 @@ async function getCards(){
             priorityindex = i;
         }
         carddata.push(data["cards"][i])
-        //document.getElementById('body').innerHTML += '<div class="taskcard" id="' + data["cards"][i]["id"] + '"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ data["cards"][i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + data["cards"][i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + data["cards"][i]["description"] + '</p></div></div>';
     }
     for (let i = 0; i < carddata.length; i++) {
         // console.log(carddata)
