@@ -1,7 +1,6 @@
 var beginningscore = 20;
 
 async function getCards(){
-    document.getElementById('body').innerHTML = ""
     const response = await fetch("http://127.0.0.1:5000/api/getcards", {method: "POST"});
     var data = await response.json();
     console.log(data);
@@ -14,15 +13,17 @@ async function getCards(){
         }
         carddata.push(data["cards"][i])
     }
+    var documentbody = ""
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){
-            document.getElementById('body').innerHTML += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
+            documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
         } else {
             console.log(priorityindex);
             console.log(i);
             document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Tasks:</h1><div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
         }
     }
+    document.getElementById('body').innerHTML = documentbody
 }
 
 async function removeCard(element){
@@ -38,6 +39,8 @@ async function removeCard(element){
     });
     var fadeTarget = document.getElementById(element.parentElement.parentElement.id);
     fadeTarget.style.animation="zoom forwards 0.5s ease-out 1";
+    setTimeout(()=>{getCards()}, 500);
+    
 }
 
 document.addEventListener("DOMContentLoaded", function(){
