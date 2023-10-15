@@ -80,7 +80,7 @@ def makecard():
         tr.insert({
             "id": id,
             "title": title,
-            "description": title,
+            "description": description,
             "difficulty": difficulty
         })
     return "success"
