@@ -4,6 +4,9 @@ from marshmallow import Schema, fields, ValidationError
 import random
 import string
 from tinyrecord import transaction
+import webbrowser
+
+webbrowser.open_new_tab("127.0.0.1:5000")
 
 app = Flask(__name__)
 
@@ -22,6 +25,10 @@ class RemoveCardSchema(Schema):
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/api/close", methods=["POST"])
+def close():
+    exit()
 
 @app.route("/api/getid", methods=["POST"])
 def getid():
@@ -120,6 +127,6 @@ def editcard():
             "difficulty": difficulty
         })
     return "success"
-
 if __name__ == "__main__":
     app.run()
+    

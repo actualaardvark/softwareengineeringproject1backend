@@ -1,5 +1,7 @@
 var beginningscore;
 
+window.addEventListener("DOMContentLoaded", () => loadEdit(), false);
+
 async function getCards(){
     const response = await fetch("http://127.0.0.1:5000/api/getcards", {method: "POST"});
     var data = await response.json();
