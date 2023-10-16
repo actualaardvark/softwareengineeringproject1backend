@@ -1,4 +1,5 @@
 #!/bin/bash
+# Runs api testcases and checks if they pass or fail
 for folder in $(ls ./testcases) 
 do 
    echo -e "\n--- Testing $folder API ---\n"

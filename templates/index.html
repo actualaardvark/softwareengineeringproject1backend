@@ -36,6 +36,7 @@
                 <div class="modal-save-button"><button id="modalsave" onclick="saveCard()">Save Card</button></div>
             </div>
         </div>
+        <!-- Energy level modal dialogue -->
         <div class="modal" id="energymodal" style="display: flex;">
             <span style="display:none"></span>
             <div class="modal-content">
@@ -47,6 +48,7 @@
                 <div class="modal-save-button"><button id="energymodalsave" onclick="saveEnergy()">Save</button></div>
             </div>
         </div>
+        <!-- Warning modal for unlocking difficulty cards -->
         <div class="modal" id="warningmodal">
             <span id="warningidattach" style="display:none"></span>
             <div class="modal-content" style="text-align: center; display: flex; justify-content: center;">
@@ -65,5 +67,6 @@
         <div id="body" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;"></div>
         <button class="createcard" onclick="createCard()">+</button>
     </body>
+    <!-- Import script last so it has proper access to HTML DOM. It needs it -->
     <script src="{{ url_for('static', filename= 'js/index.js') }}"></script>
 </html>
