@@ -4,8 +4,10 @@ from marshmallow import Schema, fields, ValidationError
 import random
 import string
 from tinyrecord import transaction
+from flaskwebgui import FlaskUI
 
 app = Flask(__name__)
+ui = FlaskUI(app, width=500, height=500)
 
 db = TinyDB('db.json')
 
@@ -120,3 +122,6 @@ def editcard():
             "difficulty": difficulty
         })
     return "success"
+
+if __name__ == "__main__":
+    ui.run()
