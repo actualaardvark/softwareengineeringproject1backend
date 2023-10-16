@@ -160,7 +160,7 @@ body, body > span{
 .taskcard:hover .taskcardcontent{
     pointer-events: none;
 }
-
+/* Animation keyframes for dissapearing cards */
 @keyframes zoom { 
     0% {
       transform: scale(1);
