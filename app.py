@@ -1,19 +1,25 @@
+# Flask Web Framework
 from flask import Flask, request, render_template, jsonify
+# Tinydb JSON Database
 from tinydb import TinyDB, Query, where
+# Marshmallow for API Validation
 from marshmallow import Schema, fields, ValidationError
+# Random for Generating Random Numbers
 import random
+# String for Something. I've Forgotten
 import string
+# TinyRecord as a Wrapper to Prevent Flask's Multithreading from Breaking TinyDB
 from tinyrecord import transaction
+# Webbrowser for Browser Tab Opening
 import webbrowser
-
 webbrowser.open_new_tab("127.0.0.1:5000")
-
+#Instantiate flask app
 app = Flask(__name__)
-
+# Create/Register new tinydb
 db = TinyDB('db.json')
-
+# Set length of card ids
 idlength = 16
-
+# Validation schemes for marshmallow
 class CardSchema(Schema):
     id = fields.String(required=True)
     difficulty = fields.Integer(required=True)
@@ -21,15 +27,15 @@ class CardSchema(Schema):
     title = fields.String(required=True)
 class RemoveCardSchema(Schema):
     id = fields.String(required=True)
-
+#Return main page
 @app.route("/")
 def index():
     return render_template("index.html")
-
+# API for closing the app. Unused as of v0.0.1
 @app.route("/api/close", methods=["POST"])
 def close():
     exit()
-
+# Gets valid id for card. Could be replaced later
 @app.route("/api/getid", methods=["POST"])
 def getid():
     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
@@ -39,6 +45,7 @@ def getid():
     output = {"id": id}
     print(output)
     return jsonify(output)
+# API for removing card from database by id
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
     search = Query()
@@ -54,7 +61,7 @@ def removecard():
     with transaction(db) as tr:
         tr.remove(where("id") == requestinput["id"])
     return "success"
-
+# API for getting a complete list of cards. Returns as JSON to by parsed by JS
 @app.route("/api/getcards", methods=["POST"])
 def getcards():
     data = db.all()
@@ -63,7 +70,7 @@ def getcards():
     }
     print(jsonify(output))
     return jsonify(output)
-
+# API for making and validating new cards
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
     requestinput = request.get_json()
@@ -96,7 +103,7 @@ def makecard():
             "difficulty": difficulty
         })
     return "success"
-
+# Slightly modified new card api for editing
 @app.route("/api/editcard",methods=["POST"])
 def editcard():
     requestinput = request.get_json()

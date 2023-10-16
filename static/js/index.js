@@ -1,7 +1,8 @@
+// Score for tracking energy level
 var beginningscore;
-
-window.addEventListener("DOMContentLoaded", () => loadEdit(), false);
-
+// Unused event listener code
+// window.addEventListener("DOMContentLoaded", () => loadEdit(), false);
+// Get cards and update html content
 async function getCards(){
     const response = await fetch("http://127.0.0.1:5000/api/getcards", {method: "POST"});
     var data = await response.json();
@@ -20,16 +21,19 @@ async function getCards(){
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){
             if (carddata[i]["difficulty"] <= beginningscore){
+                // Manually writing divs. Hope to improve in v0.0.2
                 documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             } else {
                 documentbody += '<div onclick="unlockCard(this)" class="taskcard blurlock" id="' + carddata[i]["id"] + '"><?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             }
         } else {
+            // Priority (Most difficult) Card Placement
             console.log(priorityindex);
             console.log(i);
             document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1><div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
         }
     }
+    // Shows startup and completed message if nothing in the card queue
     document.getElementById('body').innerHTML = documentbody;
     console.log(document.getElementById('priority').innerHTML);
     var x = typeof data["cards"][priorityindex];
@@ -44,11 +48,13 @@ async function getCards(){
         document.getElementById("donemessage").style.display = "none";
     }
 }
+// Allows for editing energy level with modal button
 function saveEnergy(){
     beginningscore = document.getElementById("spoonsinput").value;
     document.getElementById("energymodal").style.display = "none";
     getCards();
 }
+// Sends request to delete card and plays CSS remove animation
 async function removeCard(element){
     console.log()
     beginningscore -= element.parentElement.parentElement.childNodes[1].childNodes[1].innerText;
@@ -66,14 +72,14 @@ async function removeCard(element){
     fadeTarget.style.animation="zoom forwards 0.5s ease-out 1";
     setTimeout(()=>{getCards()}, 500);
 }
-
+// Executes on page load
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("errorslider").classList.toggle("slide-up");
     document.getElementById("priority").style.display = "none";
     document.getElementById("errorslider").style.display = "flex";
     // getCards();
 });
-
+// Hides the modal
 var hideModal = function(){
     console.log("Modal Hidden");
     document.getElementById("modalsave").setAttribute( "onClick", "javascript: saveCard();" );
@@ -82,19 +88,19 @@ var hideModal = function(){
     document.getElementById("descriptioninput").value = "";
     document.getElementById("titleinput").value = ""
 };
-
+// Hides the modal if clicked outside of while open
 window.onclick = function(event) {
     if (event.target == modal) {
       hideModal();
     }
 } 
-
+// Creates a card and edits modal onclick function to make a new card instead of edit existing one
 var createCard = function(){
     console.log("Launching Modal");
     document.getElementById("modalsave").setAttribute( "onClick", "javascript: saveCard();" );
     document.getElementById('modal').style.display = "block";
 }
-
+// What I said before, but more of it
 async function saveCard(){
     const response = await fetch("http://127.0.0.1:5000/api/getid", {method: "POST"});
     var data = await response.json();
@@ -121,6 +127,7 @@ async function saveCard(){
     console.log(output);
     getCards();
     hideModal();
+    // Custom error prompt handling
     if (outputjson["error"] == "keyschemavalidationerror"){
         document.getElementById("errortitle").innerText = "Key Schema Error";
         document.getElementById("errordescription").innerText = "Make sure you filled in all of the form fields. If this issues persists, contact the developer.";
@@ -150,7 +157,7 @@ async function saveCard(){
         setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
     }
 }
-
+// Edit card by replacing onclick from create card modal dialogue
 function editCard(element){
     document.getElementById("modalsave").setAttribute( "onClick", "javascript: saveEdit();" );
     var id = element.parentElement.parentElement.id;
@@ -211,6 +218,7 @@ function editCard(element){
     //     setTimeout(()=>{document.getElementById("errorslider").classList.toggle("slide-down");}, 4000);
     // }
 }
+// writes the edit to the html + database
 async function saveEdit(){
     id = document.getElementById("idattach").innerText
     var output = await fetch("http://127.0.0.1:5000/api/editcard", {
@@ -267,7 +275,7 @@ var unlockCard = function(element){
     document.getElementById("warningmodal").style.display = "flex";
     document.getElementById("warningidattach").innerText = element.id;
 }
-
+// Allows for unlocking cards that are too difficult
 var unlockCardById = function(id){
     id = id.childNodes[1].innerText;
     console.log(id);
