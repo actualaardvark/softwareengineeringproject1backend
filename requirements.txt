@@ -1,0 +1,5 @@
+Flask==3.0.0
+flaskwebgui==1.0.8
+marshmallow==3.20.1
+tinydb==4.8.0
+tinyrecord==0.2.0
