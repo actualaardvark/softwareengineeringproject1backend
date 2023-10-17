@@ -12,6 +12,9 @@ import string
 from tinyrecord import transaction
 # Webbrowser for Browser Tab Opening
 import webbrowser
+
+from flaskwebgui import FlaskUI
+
 webbrowser.open_new_tab("127.0.0.1:5000")
 #Instantiate flask app
 app = Flask(__name__)
@@ -134,6 +137,10 @@ def editcard():
             "difficulty": difficulty
         })
     return "success"
+# if __name__ == "__main__":
+#     app.run()
 if __name__ == "__main__":
-    app.run()
-    
+  # If you are debugging you can do that in the browser:
+  # app.run()
+  # If you want to view the flaskwebgui window:
+  FlaskUI(app=app, server="flask", port=5000).run()
