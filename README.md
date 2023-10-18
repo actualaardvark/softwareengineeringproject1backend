@@ -1,2 +1,2 @@
 # Task Management Web App
-A simple app for managing tasks with flask
+A simple app for managing tasks with Flask
