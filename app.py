@@ -15,7 +15,7 @@ import webbrowser
 
 from flaskwebgui import FlaskUI
 
-webbrowser.open_new_tab("127.0.0.1:5000")
+
 #Instantiate flask app
 app = Flask(__name__)
 # Create/Register new tinydb
