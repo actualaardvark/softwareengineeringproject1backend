@@ -1,2 +1,2 @@
-# softwareengineeringproject1backend
-Readme improvements in v0.0.2
+# Task Management Web App
+A simple app for managing tasks with flask
