@@ -4,3 +4,4 @@ db.json
 venv
 dist
 build
+app.spec
