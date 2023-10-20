@@ -15,8 +15,8 @@
             <div class="errorwrapper" id="errorwrapper">
                 <div class="errorcontainer">
                     <!-- The text here is dummy data and gets removed later -->
-                    <h1 class="errorname" id="errortitle">Key Schema Error</h1>
-                    <h2 class="errordescription" id="errordescription">The server has suffered an error. Please restart the app.</h2>
+                    <h1 class="errorname" id="errortitle"></h1>
+                    <h2 class="errordescription" id="errordescription"></h2>
                 </div>
             </div>
         </div>
@@ -41,9 +41,9 @@
         <div class="modal" id="energymodal" style="display: flex;">
             <span style="display:none"></span>
             <div class="modal-content">
-                <h2>Energy Level (1-99)</h2>
-                <h2>1 means no energy to make descisions.</h2>
-                <h2>99 means peak energy levels.</h2>
+                <h2>Energy Level (1-10)</h2>
+                <h2>1 being easiest tasks</h2>
+                <h2>10 being most difficulty</h2>
                 <textarea id="spoonsinput" maxlength="2"></textarea>
                 <br>
                 <div class="modal-save-button"><button id="energymodalsave" onclick="saveEnergy()">Save</button></div>
@@ -67,7 +67,8 @@
         </div>
         <div id="body" style="width: 100%; display: flex; flex-direction: row; flex-wrap: wrap;"></div>
         <button class="createcard" onclick="createCard()">+</button>
+        <div style="position:absolute; bottom: 0; left: 0;"><a href="https://github.com/actualaardvark/softwareengineeringproject1backend">Source Code</a></div>
     </body>
-    <!-- Import script last so it has proper access to HTML DOM. It needs it -->
+    <!-- Import script last so it has proper access to HTML DOM.-->
     <script src="{{ url_for('static', filename= 'js/index.js') }}"></script>
 </html>
