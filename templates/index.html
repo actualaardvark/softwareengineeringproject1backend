@@ -44,7 +44,11 @@
                 <h2>Energy Level (1-10)</h2>
                 <h2>1 being easiest tasks</h2>
                 <h2>10 being most difficulty</h2>
-                <textarea id="spoonsinput" maxlength="2"></textarea>
+                <!-- <textarea id="spoonsinput" maxlength="2"></textarea> -->
+                <h1 id="difficulty">5</h1>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="spoonsinput" oninput="document.getElementById('difficulty').innerText = this.value"></input>
+                </div>
                 <br>
                 <div class="modal-save-button"><button id="energymodalsave" onclick="saveEnergy()">Save</button></div>
             </div>

@@ -4,7 +4,7 @@ var beginningscore;
 // window.addEventListener("DOMContentLoaded", () => loadEdit(), false);
 // Get cards and update html content
 async function getCards(){
-    const response = await fetch("http://127.0.0.1:5052/api/getcards", {method: "POST"});
+    const response = await fetch(window.location.href + "api/getcards", {method: "POST"});
     var data = await response.json();
     console.log(data);
     carddata = [];
@@ -51,6 +51,7 @@ async function getCards(){
 // Allows for editing energy level with modal button
 function saveEnergy(){
     beginningscore = document.getElementById("spoonsinput").value;
+    document.getElementById("difficulty").innerText = beginningscore;
     document.getElementById("energymodal").style.display = "none";
     getCards();
 }
@@ -63,7 +64,7 @@ async function removeCard(element){
     console.log()
     beginningscore -= element.parentElement.parentElement.childNodes[1].childNodes[1].innerText;
     console.log("Beginning Score:", beginningscore);
-    var removeCardTarget = await fetch("http://127.0.0.1:5052/api/removecard", {
+    var removeCardTarget = await fetch(window.location.href + "api/removecard", {
         method: "POST",
         body: JSON.stringify({
             id: element.parentElement.parentElement.id
@@ -75,7 +76,7 @@ async function removeCard(element){
     var fadeTarget = document.getElementById(element.parentElement.parentElement.id);
     fadeTarget.style.animation="zoom forwards 0.5s ease-out 1";
     setTimeout(()=>{getCards()}, 500);
-    showEnergy()
+    // showEnergy()
 }
 // Executes on page load
 document.addEventListener("DOMContentLoaded", function(){
@@ -107,10 +108,10 @@ var createCard = function(){
 }
 // What I said before, but more of it
 async function saveCard(){
-    const response = await fetch("http://127.0.0.1:5052/api/getid", {method: "POST"});
+    const response = await fetch(window.location.href + "api/getid", {method: "POST"});
     var data = await response.json();
     var id = data["id"];
-    var output = await fetch("http://127.0.0.1:5052/api/makecard", {
+    var output = await fetch(window.location.href + "api/makecard", {
         method: "POST",
         body: JSON.stringify({
             id: id,
@@ -176,7 +177,7 @@ function editCard(element){
 // writes the edit to the html + database
 async function saveEdit(){
     id = document.getElementById("idattach").innerText
-    var output = await fetch("http://127.0.0.1:5052/api/editcard", {
+    var output = await fetch(window.location.href + "api/editcard", {
         method: "POST",
         body: JSON.stringify({
             id: id,
