@@ -22,6 +22,27 @@ async function getCards(){
         if (i != priorityindex){
             if (carddata[i]["difficulty"] <= beginningscore){
                 // Manually writing divs. Hope to improve in v0.0.2
+                var taskcarddiv = document.createElement("div");
+                taskcarddiv.setAttribute("id", carddata[i]["id"]);
+                taskcarddiv.setAttribute("class", "taskcard");
+
+                var buttoncontainerdiv = document.createElement("div");
+                buttoncontainerdiv.setAttribute("class", "buttoncontainer");
+
+                var editbutton = document.createElement("button");
+                editbutton.setAttribute("class", "taskcardbutton");
+                editbutton.setAttribute("id", "editbutton");
+                editbutton.setAttribute("onclick", "javascript: editCard(this)")
+                editbutton.innerText = "Edit"
+                
+                var clearbutton = document.createElement("button");
+                clearbutton.setAttribute("class", "taskcardbutton");
+                clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
+                clearbutton.innerText = "Clear";
+
+                var blurcontainerdiv = document.createElement("div");
+                blurcontainerdiv.setAttribute("class", "blurcontainer");
+
                 documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             } else {
                 documentbody += '<div onclick="unlockCard(this)" class="taskcard blurlock" id="' + carddata[i]["id"] + '"><?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
