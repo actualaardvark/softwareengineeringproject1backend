@@ -62,6 +62,7 @@ async function getCards(){
         } else {
             taskcarddiv.setAttribute("class", "blurlock taskcard");
             taskcarddiv.setAttribute("onclick", "javascript: unlockCard(this)");
+            // lock svg element
             var locktext = '<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg>'
             taskcarddiv.innerHTML = locktext + taskcarddiv.innerHTML;
             return taskcarddiv.outerHTML;
