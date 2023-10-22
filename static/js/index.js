@@ -77,9 +77,7 @@ async function getCards(){
                 documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], true);
             }
         } else {
-            // Priority (Most difficult) Card Placement
-            // console.log(priorityindex);
-            // console.log(i);
+            // Priority (Most difficult unlocked) Card Placement
             document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1>' + constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);;
         }
     }
