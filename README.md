@@ -40,6 +40,6 @@ The primary frontend css code. Planning to split into several files later.
 
 The folder containing the API testcases.
 
-### apitests.sh
+### apitests.sh (Broken Due to API Changes)
 
 A script for running the API tests. API tests ``echo`` pass or fail, and that is used to determine whether a test has passed. New API tests can be added as shell scripts categorized by folders.
