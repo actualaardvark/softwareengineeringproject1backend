@@ -146,7 +146,7 @@ window.onclick = function(event) {
     if (event.target == modal) {
       hideModal();
     }
-} 
+}
 // Creates a card and edits modal onclick function to make a new card instead of edit existing one
 var createCard = function(){
     console.log("Launching Modal");
