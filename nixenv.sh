@@ -1,0 +1,1 @@
+nix-shell -p python3 python3Packages.virtualenv
