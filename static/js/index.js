@@ -67,47 +67,6 @@ async function getCards(){
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){
             if (carddata[i]["difficulty"] <= beginningscore){
-                // Manually writing divs. Hope to improve in v0.0.2
-                // var taskcarddiv = document.createElement("div");
-                // taskcarddiv.setAttribute("id", carddata[i]["id"]);
-                // taskcarddiv.setAttribute("class", "taskcard");
-
-                // var buttoncontainerdiv = document.createElement("div");
-                // buttoncontainerdiv.setAttribute("class", "buttoncontainer");
-
-                // var editbutton = document.createElement("button");
-                // editbutton.setAttribute("class", "taskcardbutton");
-                // editbutton.setAttribute("id", "editbutton");
-                // editbutton.setAttribute("onclick", "javascript: editCard(this)")
-                // editbutton.innerText = "Edit"
-                
-                // var clearbutton = document.createElement("button");
-                // clearbutton.setAttribute("class", "taskcardbutton");
-                // clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
-                // clearbutton.innerText = "Clear";
-
-                // var blurcontainerdiv = document.createElement("div");
-                // blurcontainerdiv.setAttribute("class", "blurcontainer");
-
-                // var taskcarddifficultydiv = document.createElement("div");
-                // taskcarddifficultydiv.setAttribute("class", "taskcardcontent taskcarddifficulty");
-                // taskcarddifficultydiv.innerText = carddata[i]["difficulty"];
-
-                // var taskcardtitlediv = document.createElement("h1");
-                // taskcardtitlediv.setAttribute("class", "taskcardcontent taskcardtitle");
-                // taskcardtitlediv.innerText = carddata[i]["title"];
-
-                // var taskcarddescriptiondiv = document.createElement("p");
-                // taskcarddescriptiondiv.setAttribute("class", "taskcardcontent taskcarddescription");
-                // taskcarddescriptiondiv.innerText = carddata[i]["description"];
-                
-                // blurcontainerdiv.appendChild(taskcarddifficultydiv);
-                // blurcontainerdiv.appendChild(taskcardtitlediv);
-                // blurcontainerdiv.appendChild(taskcarddescriptiondiv);
-                // buttoncontainerdiv.appendChild(editbutton);
-                // buttoncontainerdiv.appendChild(clearbutton);
-                // taskcarddiv.appendChild(buttoncontainerdiv);
-                // taskcarddiv.appendChild(blurcontainerdiv);
                 documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);
                 //documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             } else {
