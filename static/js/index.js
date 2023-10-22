@@ -6,12 +6,10 @@ var beginningscore;
 async function getCards(){
     const response = await fetch(window.location.href + "api/getcards", {method: "POST"});
     var data = await response.json();
-    console.log(data);
     carddata = [];
     var priorityindex = 0;
     for (let i = 0; i < data["cards"].length; i++) {
         if (data["cards"][priorityindex]["difficulty"] < data["cards"][i]["difficulty"] && data["cards"][i]["difficulty"] < beginningscore){
-            console.log(i, data["cards"][i]["difficulty"])
             priorityindex = i;
         }
         carddata.push(data["cards"][i])
@@ -83,12 +81,8 @@ async function getCards(){
     }
     // Shows startup and completed message if nothing in the card queue
     document.getElementById('body').innerHTML = documentbody;
-    console.log(document.getElementById('priority').innerHTML);
     var x = typeof data["cards"][priorityindex];
-    console.log(x);
-    console.log(documentbody == '' && x == "undefined");
     if(document.getElementById('body').innerHTML  == '' && x == "undefined"){
-        console.log("Empty Doc")
         document.getElementById("priority").style.display = "none";
         document.getElementById("donemessage").style.display = "flex";
     } else {
@@ -109,8 +103,6 @@ function showEnergy(){
 
 // Sends request to delete card and plays CSS remove animation
 async function removeCard(element){
-    // beginningscore -= element.parentElement.parentElement.childNodes[1].childNodes[1].innerText;
-    // console.log("Beginning Score:", beginningscore);
     var removeCardTarget = await fetch(window.location.href + "api/removecard", {
         method: "POST",
         body: JSON.stringify({
@@ -134,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 // Hides the modal
 var hideModal = function(){
-    console.log("Modal Hidden");
     document.getElementById("modalsave").setAttribute( "onClick", "javascript: saveCard();" );
     document.getElementById('modal').style.display = "none";
     document.getElementById("difficultyinput").value = "";
@@ -149,7 +140,6 @@ window.onclick = function(event) {
 }
 // Creates a card and edits modal onclick function to make a new card instead of edit existing one
 var createCard = function(){
-    console.log("Launching Modal");
     document.getElementById("modalsave").setAttribute( "onClick", "javascript: saveCard();" );
     document.getElementById('modal').style.display = "block";
 }
@@ -170,14 +160,7 @@ async function saveCard(){
             "Content-type": "application/json; charset=UTF-8"
         }
     });
-    var outputjson;
-    try{
-        outputjson = await output.json();
-    } catch {
-        console.log("success");
-    }
-    console.log(outputjson)
-    console.log(output);
+    var outputjson = await output.json();
     getCards();
     hideModal();
     // Custom error prompt handling
@@ -236,13 +219,7 @@ async function saveEdit(){
             "Content-type": "application/json; charset=UTF-8"
         }
     });
-    try{
-        var outputjson = await output.json();
-    } catch {
-        console.log("success");
-    }
-    console.log(outputjson)
-    console.log(output);
+    var outputjson = await output.json();
     getCards();
     hideModal();
     if (outputjson["error"] == "keyschemavalidationerror"){
@@ -281,7 +258,6 @@ var unlockCard = function(element){
 // Allows for unlocking cards that are too difficult
 var unlockCardById = function(id){
     id = id.childNodes[1].innerText;
-    console.log(id);
     document.getElementById(id).classList.toggle("blurlock");
     document.getElementById(id).setAttribute( "onClick", "" );
     document.getElementById(id).childNodes[0].remove();
