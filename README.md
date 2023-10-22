@@ -43,9 +43,3 @@ The folder containing the API testcases.
 ### apitests.sh
 
 A script for running the API tests. API tests ``echo`` pass or fail, and that is used to determine whether a test has passed. New API tests can be added as shell scripts categorized by folders.
-
-$$
-
-
-
-$$
