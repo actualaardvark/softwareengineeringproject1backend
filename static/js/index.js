@@ -17,50 +17,54 @@ async function getCards(){
         carddata.push(data["cards"][i])
     }
     function constructCard(id, title, difficulty, description, locked){
+        var taskcarddiv = document.createElement("div");
+        taskcarddiv.setAttribute("id", id);
+        taskcarddiv.setAttribute("class", "taskcard");
+
+        var buttoncontainerdiv = document.createElement("div");
+        buttoncontainerdiv.setAttribute("class", "buttoncontainer");
+
+        var editbutton = document.createElement("button");
+        editbutton.setAttribute("class", "taskcardbutton");
+        editbutton.setAttribute("id", "editbutton");
+        editbutton.setAttribute("onclick", "javascript: editCard(this)")
+        editbutton.innerText = "Edit"
+        
+        var clearbutton = document.createElement("button");
+        clearbutton.setAttribute("class", "taskcardbutton");
+        clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
+        clearbutton.innerText = "Clear";
+
+        var blurcontainerdiv = document.createElement("div");
+        blurcontainerdiv.setAttribute("class", "blurcontainer");
+
+        var taskcarddifficultydiv = document.createElement("div");
+        taskcarddifficultydiv.setAttribute("class", "taskcardcontent taskcarddifficulty");
+        taskcarddifficultydiv.innerText = difficulty;
+        
+        var taskcardtitlediv = document.createElement("h1");
+        taskcardtitlediv.setAttribute("class", "taskcardcontent taskcardtitle");
+        taskcardtitlediv.innerText = title;
+        
+        var taskcarddescriptiondiv = document.createElement("p");
+        taskcarddescriptiondiv.setAttribute("class", "taskcardcontent taskcarddescription");
+        taskcarddescriptiondiv.innerText = description;
+        
+        blurcontainerdiv.appendChild(taskcarddifficultydiv);
+        blurcontainerdiv.appendChild(taskcardtitlediv);
+        blurcontainerdiv.appendChild(taskcarddescriptiondiv);
+        buttoncontainerdiv.appendChild(editbutton);
+        buttoncontainerdiv.appendChild(clearbutton);
+        taskcarddiv.appendChild(buttoncontainerdiv);
+        taskcarddiv.appendChild(blurcontainerdiv);
         if (locked == false){
-            var taskcarddiv = document.createElement("div");
-            taskcarddiv.setAttribute("id", id);
-            taskcarddiv.setAttribute("class", "taskcard");
-
-            var buttoncontainerdiv = document.createElement("div");
-            buttoncontainerdiv.setAttribute("class", "buttoncontainer");
-
-            var editbutton = document.createElement("button");
-            editbutton.setAttribute("class", "taskcardbutton");
-            editbutton.setAttribute("id", "editbutton");
-            editbutton.setAttribute("onclick", "javascript: editCard(this)")
-            editbutton.innerText = "Edit"
-            
-            var clearbutton = document.createElement("button");
-            clearbutton.setAttribute("class", "taskcardbutton");
-            clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
-            clearbutton.innerText = "Clear";
-
-            var blurcontainerdiv = document.createElement("div");
-            blurcontainerdiv.setAttribute("class", "blurcontainer");
-
-            var taskcarddifficultydiv = document.createElement("div");
-            taskcarddifficultydiv.setAttribute("class", "taskcardcontent taskcarddifficulty");
-            taskcarddifficultydiv.innerText = difficulty;
-            
-            var taskcardtitlediv = document.createElement("h1");
-            taskcardtitlediv.setAttribute("class", "taskcardcontent taskcardtitle");
-            taskcardtitlediv.innerText = title;
-            
-            var taskcarddescriptiondiv = document.createElement("p");
-            taskcarddescriptiondiv.setAttribute("class", "taskcardcontent taskcarddescription");
-            taskcarddescriptiondiv.innerText = description;
-            
-            blurcontainerdiv.appendChild(taskcarddifficultydiv);
-            blurcontainerdiv.appendChild(taskcardtitlediv);
-            blurcontainerdiv.appendChild(taskcarddescriptiondiv);
-            buttoncontainerdiv.appendChild(editbutton);
-            buttoncontainerdiv.appendChild(clearbutton);
-            taskcarddiv.appendChild(buttoncontainerdiv);
-            taskcarddiv.appendChild(blurcontainerdiv);
             return taskcarddiv.outerHTML;
         } else {
-
+            taskcarddiv.setAttribute("class", "blurlock taskcard");
+            taskcarddiv.setAttribute("onclick", "javascript: unlockCard(this)");
+            var locktext = '<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg>'
+            taskcarddiv.innerHTML = locktext + taskcarddiv.innerHTML;
+            return taskcarddiv.outerHTML;
         }
     }
     var documentbody = ""
@@ -69,13 +73,13 @@ async function getCards(){
             if (carddata[i]["difficulty"] <= beginningscore){
                 documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);
             } else {
-                documentbody += '<div onclick="unlockCard(this)" class="taskcard blurlock" id="' + carddata[i]["id"] + '"><?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
+                documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], true);
             }
         } else {
             // Priority (Most difficult) Card Placement
             // console.log(priorityindex);
             // console.log(i);
-            document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1><div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
+            document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1>' + constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);;
         }
     }
     // Shows startup and completed message if nothing in the card queue
