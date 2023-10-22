@@ -16,41 +16,107 @@ async function getCards(){
         }
         carddata.push(data["cards"][i])
     }
+    function constructCard(id, title, difficulty, description, locked){
+        if (locked == false){
+            var taskcarddiv = document.createElement("div");
+            taskcarddiv.setAttribute("id", id);
+            taskcarddiv.setAttribute("class", "taskcard");
 
+            var buttoncontainerdiv = document.createElement("div");
+            buttoncontainerdiv.setAttribute("class", "buttoncontainer");
+
+            var editbutton = document.createElement("button");
+            editbutton.setAttribute("class", "taskcardbutton");
+            editbutton.setAttribute("id", "editbutton");
+            editbutton.setAttribute("onclick", "javascript: editCard(this)")
+            editbutton.innerText = "Edit"
+            
+            var clearbutton = document.createElement("button");
+            clearbutton.setAttribute("class", "taskcardbutton");
+            clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
+            clearbutton.innerText = "Clear";
+
+            var blurcontainerdiv = document.createElement("div");
+            blurcontainerdiv.setAttribute("class", "blurcontainer");
+
+            var taskcarddifficultydiv = document.createElement("div");
+            taskcarddifficultydiv.setAttribute("class", "taskcardcontent taskcarddifficulty");
+            taskcarddifficultydiv.innerText = difficulty;
+            
+            var taskcardtitlediv = document.createElement("h1");
+            taskcardtitlediv.setAttribute("class", "taskcardcontent taskcardtitle");
+            taskcardtitlediv.innerText = title;
+            
+            var taskcarddescriptiondiv = document.createElement("p");
+            taskcarddescriptiondiv.setAttribute("class", "taskcardcontent taskcarddescription");
+            taskcarddescriptiondiv.innerText = description;
+            
+            blurcontainerdiv.appendChild(taskcarddifficultydiv);
+            blurcontainerdiv.appendChild(taskcardtitlediv);
+            blurcontainerdiv.appendChild(taskcarddescriptiondiv);
+            buttoncontainerdiv.appendChild(editbutton);
+            buttoncontainerdiv.appendChild(clearbutton);
+            taskcarddiv.appendChild(buttoncontainerdiv);
+            taskcarddiv.appendChild(blurcontainerdiv);
+            return taskcarddiv.outerHTML;
+        } else {
+
+        }
+    }
     var documentbody = ""
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){
             if (carddata[i]["difficulty"] <= beginningscore){
                 // Manually writing divs. Hope to improve in v0.0.2
-                var taskcarddiv = document.createElement("div");
-                taskcarddiv.setAttribute("id", carddata[i]["id"]);
-                taskcarddiv.setAttribute("class", "taskcard");
+                // var taskcarddiv = document.createElement("div");
+                // taskcarddiv.setAttribute("id", carddata[i]["id"]);
+                // taskcarddiv.setAttribute("class", "taskcard");
 
-                var buttoncontainerdiv = document.createElement("div");
-                buttoncontainerdiv.setAttribute("class", "buttoncontainer");
+                // var buttoncontainerdiv = document.createElement("div");
+                // buttoncontainerdiv.setAttribute("class", "buttoncontainer");
 
-                var editbutton = document.createElement("button");
-                editbutton.setAttribute("class", "taskcardbutton");
-                editbutton.setAttribute("id", "editbutton");
-                editbutton.setAttribute("onclick", "javascript: editCard(this)")
-                editbutton.innerText = "Edit"
+                // var editbutton = document.createElement("button");
+                // editbutton.setAttribute("class", "taskcardbutton");
+                // editbutton.setAttribute("id", "editbutton");
+                // editbutton.setAttribute("onclick", "javascript: editCard(this)")
+                // editbutton.innerText = "Edit"
                 
-                var clearbutton = document.createElement("button");
-                clearbutton.setAttribute("class", "taskcardbutton");
-                clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
-                clearbutton.innerText = "Clear";
+                // var clearbutton = document.createElement("button");
+                // clearbutton.setAttribute("class", "taskcardbutton");
+                // clearbutton.setAttribute("onclick", "javascript: removeCard(this)");
+                // clearbutton.innerText = "Clear";
 
-                var blurcontainerdiv = document.createElement("div");
-                blurcontainerdiv.setAttribute("class", "blurcontainer");
+                // var blurcontainerdiv = document.createElement("div");
+                // blurcontainerdiv.setAttribute("class", "blurcontainer");
 
-                documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
+                // var taskcarddifficultydiv = document.createElement("div");
+                // taskcarddifficultydiv.setAttribute("class", "taskcardcontent taskcarddifficulty");
+                // taskcarddifficultydiv.innerText = carddata[i]["difficulty"];
+
+                // var taskcardtitlediv = document.createElement("h1");
+                // taskcardtitlediv.setAttribute("class", "taskcardcontent taskcardtitle");
+                // taskcardtitlediv.innerText = carddata[i]["title"];
+
+                // var taskcarddescriptiondiv = document.createElement("p");
+                // taskcarddescriptiondiv.setAttribute("class", "taskcardcontent taskcarddescription");
+                // taskcarddescriptiondiv.innerText = carddata[i]["description"];
+                
+                // blurcontainerdiv.appendChild(taskcarddifficultydiv);
+                // blurcontainerdiv.appendChild(taskcardtitlediv);
+                // blurcontainerdiv.appendChild(taskcarddescriptiondiv);
+                // buttoncontainerdiv.appendChild(editbutton);
+                // buttoncontainerdiv.appendChild(clearbutton);
+                // taskcarddiv.appendChild(buttoncontainerdiv);
+                // taskcarddiv.appendChild(blurcontainerdiv);
+                documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);
+                //documentbody += '<div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             } else {
                 documentbody += '<div onclick="unlockCard(this)" class="taskcard blurlock" id="' + carddata[i]["id"] + '"><?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="none" stroke-width="1.5" viewBox="0 0 24 24" color="#FFF"><path stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M16 12h1.4a.6.6 0 0 1 .6.6v6.8a.6.6 0 0 1-.6.6H6.6a.6.6 0 0 1-.6-.6v-6.8a.6.6 0 0 1 .6-.6H8m8 0V8c0-1.333-.8-4-4-4S8 6.667 8 8v4m8 0H8"></path></svg><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
             }
         } else {
             // Priority (Most difficult) Card Placement
-            console.log(priorityindex);
-            console.log(i);
+            // console.log(priorityindex);
+            // console.log(i);
             document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1><div class="taskcard" id="' + carddata[i]["id"] + '"><div class = "buttoncontainer"><button class="taskcardeditbutton taskcardbutton" id="editButton" onclick="editCard(this)">Edit</button><button class="taskcardclearbutton taskcardbutton" onclick="removeCard(this)">Clear</button></div><div class="blurcontainer"><div class="taskcarddifficulty taskcardcontent">'+ carddata[i]["difficulty"] +'</div><h1 class="taskcardtitle taskcardcontent">' + carddata[i]["title"] + '</h1><p class="taskcarddescription taskcardcontent">' + carddata[i]["description"] + '</p></div></div>';
         }
     }
@@ -60,7 +126,7 @@ async function getCards(){
     var x = typeof data["cards"][priorityindex];
     console.log(x);
     console.log(documentbody == '' && x == "undefined");
-    if(documentbody == '' && x == "undefined"){
+    if(document.getElementById('body').innerHTML  == '' && x == "undefined"){
         console.log("Empty Doc")
         document.getElementById("priority").style.display = "none";
         document.getElementById("donemessage").style.display = "flex";
@@ -82,9 +148,8 @@ function showEnergy(){
 
 // Sends request to delete card and plays CSS remove animation
 async function removeCard(element){
-    console.log()
-    beginningscore -= element.parentElement.parentElement.childNodes[1].childNodes[1].innerText;
-    console.log("Beginning Score:", beginningscore);
+    // beginningscore -= element.parentElement.parentElement.childNodes[1].childNodes[1].innerText;
+    // console.log("Beginning Score:", beginningscore);
     var removeCardTarget = await fetch(window.location.href + "api/removecard", {
         method: "POST",
         body: JSON.stringify({

@@ -35,9 +35,9 @@ class RemoveCardSchema(Schema):
 def index():
     return render_template("index.html")
 # API for closing the app. Unused as of v0.0.1
-@app.route("/api/close", methods=["POST"])
-def close():
-    exit()
+# @app.route("/api/close", methods=["POST"])
+# def close():
+#     exit()
 # Gets valid id for card. Could be replaced later
 @app.route("/api/getid", methods=["POST"])
 def getid():
@@ -63,7 +63,7 @@ def removecard():
     print(requestinput)
     with transaction(db) as tr:
         tr.remove(where("id") == requestinput["id"])
-    return "success"
+    return jsonify({"error":"success"}), 200
 # API for getting a complete list of cards. Returns as JSON to by parsed by JS
 @app.route("/api/getcards", methods=["POST"])
 def getcards():
@@ -105,7 +105,7 @@ def makecard():
             "description": description,
             "difficulty": difficulty
         })
-    return "success"
+    return jsonify({"error":"success"}), 200
 # Slightly modified new card api for editing
 @app.route("/api/editcard",methods=["POST"])
 def editcard():
@@ -136,7 +136,7 @@ def editcard():
             "description": description,
             "difficulty": difficulty
         })
-    return "success"
+    return jsonify({"error":"success"}), 200
 # if __name__ == "__main__":
 #     app.run()
 if __name__ == "__main__":
