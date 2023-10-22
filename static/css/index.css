@@ -1,11 +1,14 @@
+/* define basic color variables */
 :root{
     --bg-color: #191919;
     --card-bg-color: #232323;
     --card-title-text-color: #f2f2f2;
 }
 
+/* rules for body html tag */
 body, body > span{
     background: var(--bg-color);
+    /* dotted background */
     background-image: radial-gradient(var(--card-bg-color) 2px, transparent 0);
     background-size: 40px 40px;
     background-position: -19px -19px;
@@ -13,20 +16,22 @@ body, body > span{
     flex-direction: row;
     flex-wrap: wrap;
 }
-
+/* container for priority card and label */
 .prioritycontainer{
-    display:flex;
+    display: flex;
     flex-direction:row;
     width:100%;
     padding: 0%;
     margin: 0%;
 }
+/* the one card in the priority section */
 .prioritycard{
     display: flex;
     width: 100%;
     padding: 0%;
     margin: 0%;
 }
+/* createcard button in corner */
 .createcard{
     aspect-ratio: 1/1;
     width: 6vw;
@@ -44,6 +49,7 @@ body, body > span{
     border-style: none;
     cursor: pointer;
 }
+/* "Priority:" header */
 .priorityheader{
     font-size: 16vw; 
     text-decoration: underline; 
@@ -51,6 +57,7 @@ body, body > span{
     font-family: 'BloggerSansMedium'; 
     color:var(--card-title-text-color);
 }
+/* outer task card element */
 .taskcard{
     background-color: var(--card-bg-color);
     filter: drop-shadow(0px 0px 14px #000000);
@@ -62,6 +69,7 @@ body, body > span{
     flex-grow: 0;
     overflow: hidden;
 }
+/* task card title */
 .taskcardtitle{
     color: var(--card-title-text-color);
     font-size: 1.6vw;
@@ -71,9 +79,9 @@ body, body > span{
     margin-top: 0%;
     margin-bottom: 0%;
 }
+/* task card description */
 .taskcarddescription{
     color: var(--card-title-text-color);
-    font-size: 1em;
     font-size: 1vw;
     font-family: 'TranspassRegular';
     font-weight: normal;
@@ -81,17 +89,18 @@ body, body > span{
     margin-top: 0%;
     word-wrap: normal;
 }
+/* task card difficulty */
 .taskcarddifficulty{
     color: var(--card-title-text-color);
     font-family: 'BloggerSansMedium';
     font-weight: normal;
     font-style: normal; 
-    font-size: 8em;
     font-size: 12vw;
     text-align: center;
     margin-bottom: -10%;
     border-radius: 50%;
 }
+/* container for task card clear/edit buttons */
 .buttoncontainer{
     position: absolute;
     left: 0;
@@ -108,6 +117,7 @@ body, body > span{
     justify-content: center;
     z-index: 9;
 }
+/* the individual buttons in .buttoncontainer */
 .taskcardbutton{
     margin: 1vh;
     display: none;
@@ -125,26 +135,32 @@ body, body > span{
     border-radius: 8px;
     border-color: var(--card-title-text-color);
 }
+/* taskcardbutton background color change on hover */
 .taskcardbutton:hover{
     cursor: pointer;
     background-color: var(--card-title-text-color);
     color: var(--bg-color);
 }
+/* unhide task card buttons on card hover */
 .taskcard:hover .taskcardbutton{
     display: table;
 }
+/* blur card on hover */
 .taskcard:hover .blurcontainer{
     filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
 }
+/* blur card constantly if locked */
 .blurlock .blurcontainer{
     filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
     pointer-events: visible;
 }
+/* locked taskcard special css */
 .blurlock {
     cursor: pointer;
     display: flex;
     justify-content: center;
 }
+/* lock icon in .blurlock */
 .blurlock > svg{
     position: absolute;
     left: 50%;
@@ -154,13 +170,15 @@ body, body > span{
     height: 24vw;
     z-index: 15;
 }
+/* hides buttons on locked cards */
 .blurlock .buttoncontainer{
     display: none;
 }
+/* disable interacting with card elements covered by blur */
 .taskcard:hover .taskcardcontent{
     pointer-events: none;
 }
-/* Animation keyframes for dissapearing cards */
+/* Animation keyframes for disappearing cards */
 @keyframes zoom { 
     0% {
       transform: scale(1);
@@ -182,6 +200,7 @@ body, body > span{
       margin: 0;
     }
 }
+/* modal dialogue css */
 .modal {
     display: none;
     position: fixed;
@@ -194,7 +213,7 @@ body, body > span{
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
-
+/* modal dialogue content css */
 .modal-content {
     min-height: 680px;
     flex-direction: column;
@@ -207,7 +226,7 @@ body, body > span{
     font-family: 'TranspassRegular';
     font-size: 2vw;
 }
-
+/* modal close button */
 .close {
     color: var(--card-title-text-color);
     float: right;
@@ -215,7 +234,7 @@ body, body > span{
     font-weight: bold;
     cursor: pointer;
 }
-
+/* difficulty container in modal */
 .modal-content-difficultycontainer{
     display: flex;
     flex-direction: row;
@@ -223,12 +242,12 @@ body, body > span{
     margin-top: 0%;
     margin-bottom: 0%;
 }
-
+/* modal headers */
 .modal-content > h2{
     margin-top: 0%;
     margin-bottom: 0%;
 }
-
+/* modal text inputs */
 .modal-content > textarea{
     margin-top: 0%;
     margin-bottom: 0%;
@@ -240,10 +259,12 @@ body, body > span{
     border-color: var(--card-bg-color);
     color: var(--card-title-text-color);
 }
+/* modal save button container */
 .modal-save-button{
     justify-content: center;
     text-align: center;
 }
+/* modal save button; similar to task card buttons */
 .modal-save-button > button{
     min-height: 42px;
     margin: auto;
@@ -260,13 +281,13 @@ body, body > span{
     border-radius: 8px;
     border-color: var(--card-title-text-color);
 }
-
+/* almost identical to modal save button hover */
 .modal-save-button > button:hover{
     cursor: pointer;
     background-color: var(--card-title-text-color);
     color: var(--bg-color);
 }
-
+/* container for message for when tasks are done */
 .donemessage{
     position: absolute;
     display: none;
@@ -282,6 +303,7 @@ body, body > span{
     width: 100%;
     height: 100%;
 }
+/* error text container */
 .errorcontainer{
     pointer-events: none;
     display: flex;
@@ -293,13 +315,16 @@ body, body > span{
     color: var(--card-title-text-color);
     text-align: center;
 }
+/* error title */
 .errorcontainer > h1{
     font-family: 'BloggerSansMedium';
     margin-bottom: 0%;
 }
+/* error description */
 .errorcontainer > h2{
     font-family: 'TranspassRegular';
 }
+/* wrapper for .errorcontainer */
 .errorwrapper{
     pointer-events: none;
     display: flex;
@@ -308,7 +333,7 @@ body, body > span{
     justify-content: center;
     padding: 36px;
 }
-
+/* sliding animation for .errorcontainer */
 .slide-up > div, .slide-down > div {
     transform: translateY(-100%);
     transition: .4s ease-in-out;
