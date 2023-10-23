@@ -31,7 +31,11 @@
                 <h2>Title (32 Characters)</h2>
                 <textarea id="titleinput" maxlength="32"></textarea>
                 <h2>Difficulty (1-10)</h2>
-                <textarea type="numeral" maxlength="2" id="difficultyinput"></textarea>
+                <!-- <textarea type="numeral" maxlength="2" id="difficultyinput"></textarea> -->
+                <h1 id="carddifficulty">5</h1>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value="5" class="slider" id="difficultyinput" oninput="document.getElementById('carddifficulty').innerText = this.value"></input>
+                </div>
                 <h2>Description (120 Characters)</h2>
                 <textarea id="descriptioninput" maxlength="120"></textarea>
                 <br>
