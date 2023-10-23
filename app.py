@@ -12,7 +12,7 @@ import string
 from tinyrecord import transaction
 # Webbrowser for Browser Tab Opening
 import webbrowser
-
+# flask ui framework (hooks into chromium install)
 from flaskwebgui import FlaskUI
 
 
