@@ -53,3 +53,8 @@ A script that enables a suitable environment for developing this codebase on Nix
 - [ ] Javascript-powered modal dialogues
 - [ ] Fix CSS scaling issues
 - [ ] Retool API testing framework
+- [ ] Port database to sqlite3 from tinydb/tinyrecord
+- [ ] Move to full web app from flaskwebgui
+- [ ] Document API
+- [ ] Move frontend to nodejs
+- [ ] Remove dependence on Flask templates
