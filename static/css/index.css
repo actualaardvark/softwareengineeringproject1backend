@@ -357,3 +357,13 @@ body, body > span{
     right: 0;
     pointer-events: none;
 }
+.githublink{
+    position: absolute; 
+    top: 0; 
+    right: 0;
+    font-family: 'TranspassRegular';
+}
+.githublink > a{
+    color: var(--card-bg-color);
+    font-size: 1vw;
+}
