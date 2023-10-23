@@ -126,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("errorslider").classList.toggle("slide-up");
     document.getElementById("priority").style.display = "none";
     document.getElementById("errorslider").style.display = "flex";
-    // getCards();
 });
 // Hides the modal
 var hideModal = function(){
