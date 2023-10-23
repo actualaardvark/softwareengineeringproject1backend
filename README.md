@@ -50,6 +50,6 @@ A script that enables a suitable environment for developing this codebase on Nix
 
 ## Tasks
 
-- [ ] Javascript-powered model dialogues
+- [ ] Javascript-powered modal dialogues
 - [ ] Fix CSS scaling issues
 - [ ] Retool API testing framework
