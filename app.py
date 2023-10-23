@@ -6,7 +6,7 @@ from tinydb import TinyDB, Query, where
 from marshmallow import Schema, fields, ValidationError
 # Random for Generating Random Numbers
 import random
-# String for Something. I've Forgotten
+# String for generating ids and general string manipulation
 import string
 # TinyRecord as a Wrapper to Prevent Flask's Multithreading from Breaking TinyDB
 from tinyrecord import transaction
