@@ -43,3 +43,7 @@ The folder containing the API testcases.
 ### apitests.sh (Broken Due to API Changes)
 
 A script for running the API tests. API tests ``echo`` pass or fail, and that is used to determine whether a test has passed. New API tests can be added as shell scripts categorized by folders.
+
+### nixenv.sh
+
+A script that enables a suitable environment for developing this codebase on NixOS. Not useful for most devs.
