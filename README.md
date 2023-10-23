@@ -47,3 +47,9 @@ A script for running the API tests. API tests ``echo`` pass or fail, and that is
 ### nixenv.sh
 
 A script that enables a suitable environment for developing this codebase on NixOS. Not useful for most devs.
+
+## Tasks
+
+- [ ] Javascript-powered model dialogues
+- [ ] Fix CSS scaling issues
+- [ ] Retool API testing framework
