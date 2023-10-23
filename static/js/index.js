@@ -100,6 +100,7 @@ function saveEnergy(){
     document.getElementById("difficulty").innerText = beginningscore;
     document.getElementById("energymodal").style.display = "none";
     getCards();
+    document.getElementById("spoonsinput").value = 5;
 }
 function showEnergy(){
     document.getElementById("energymodal").style.display = "block";
