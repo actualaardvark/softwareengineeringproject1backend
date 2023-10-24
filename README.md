@@ -1,5 +1,12 @@
 # Task Management Web App
 
+## Screenshots
+![Screenshot from 2023-10-24 13 20 27@2x](https://github.com/actualaardvark/softwareengineeringproject1backend/assets/114784410/fe43e95a-b2a3-4d18-925c-6b4704e051d2)
+![Screenshot from 2023-10-24 13 19 54@2x](https://github.com/actualaardvark/softwareengineeringproject1backend/assets/114784410/030bf1be-ee04-440a-8ab7-8d2b1376badf)
+![Screenshot from 2023-10-24 13 19 47@2x](https://github.com/actualaardvark/softwareengineeringproject1backend/assets/114784410/46b87427-f1c8-49d9-a75e-b46297ed8a00)
+![Screenshot from 2023-10-24 13 19 39@2x](https://github.com/actualaardvark/softwareengineeringproject1backend/assets/114784410/4f9f8f55-2e36-4fff-a854-43ae22cec8e3)
+
+
 ## Description
 
 A simple app for managing tasks with Flask
