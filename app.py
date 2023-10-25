@@ -34,10 +34,6 @@ class RemoveCardSchema(Schema):
 @app.route("/")
 def index():
     return render_template("index.html")
-# API for closing the app. Unused as of v0.0.1
-# @app.route("/api/close", methods=["POST"])
-# def close():
-#     exit()
 # Gets valid id for card. Could be replaced later
 @app.route("/api/getid", methods=["POST"])
 def getid():
