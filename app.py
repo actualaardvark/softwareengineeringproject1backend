@@ -15,11 +15,18 @@ import webbrowser
 # flask ui framework (hooks into chromium install)
 from flaskwebgui import FlaskUI
 
+import sqlite3
+
 
 #Instantiate flask app
 app = Flask(__name__)
 # Create/Register new tinydb
 db = TinyDB('db.json')
+
+databaseconnection = sqlite3.connect("cards.db")
+cursor = databaseconnection.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS cards (id TEXT, title TEXT, difficulty TEXT, description TEXT);")
+
 # Set length of card ids
 idlength = 16
 # Validation schemes for marshmallow
