@@ -27,6 +27,40 @@ databaseconnection = sqlite3.connect("cards.db")
 cursor = databaseconnection.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS cards (id TEXT, title TEXT, difficulty TEXT, description TEXT);")
 
+class sqliteWrapper():
+    def writeCards(self, id, title, difficulty, description):
+        databaseconnection = sqlite3.connect("cards.db")
+        cursor = databaseconnection.cursor()
+        cursor.execute("INSERT INTO cards VALUES (?, ?, ?, ?)", (id, title, difficulty, description,))
+        databaseconnection.commit()
+        print(databaseconnection.total_changes)
+    def getCards(self):
+        databaseconnection = sqlite3.connect("cards.db")
+        cursor = databaseconnection.cursor()
+        rows = cursor.execute("SELECT id, title, difficulty, description FROM cards ORDER BY difficulty DESC;").fetchall()
+        dictrows = []
+        print(rows)
+        for i in rows:
+            dictrows.append({
+                "id": i[0], 
+                "title": i[1], 
+                "difficulty:": i[2], 
+                "description": i[3]
+                })
+        return dictrows
+    def deleteCard(self, id):
+        databaseconnection = sqlite3.connect("cards.db")
+        cursor = databaseconnection.cursor()
+        cursor.execute("DELETE FROM cards WHERE id = ?", (id,))
+        databaseconnection.commit()
+    def editCard(self, id, title, difficulty, description):
+        databaseconnection = sqlite3.connect("cards.db")
+        cursor = databaseconnection.cursor()
+        cursor.execute("DELETE FROM cards WHERE id = ?", (id,))
+        databaseconnection.commit()
+        cursor.execute("INSERT INTO cards VALUES (?, ?, ?, ?)", (id, title, difficulty, description,))
+        databaseconnection.commit()
+
 # Set length of card ids
 idlength = 16
 # Validation schemes for marshmallow
@@ -54,6 +88,7 @@ def getid():
 # API for removing card from database by id
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
+    wrapper = sqliteWrapper()
     search = Query()
     requestinput = request.get_json()
     validationschema = RemoveCardSchema()
@@ -66,11 +101,16 @@ def removecard():
     print(requestinput)
     with transaction(db) as tr:
         tr.remove(where("id") == requestinput["id"])
+    wrapper.deleteCard(requestinput["id"])
     return jsonify({"error":"success"}), 200
 # API for getting a complete list of cards. Returns as JSON to by parsed by JS
 @app.route("/api/getcards", methods=["POST"])
 def getcards():
-    data = db.all()
+    wrapper = sqliteWrapper()
+    print(wrapper.getCards())
+    # data = db.all()
+    data = wrapper.getCards()
+    print(data)
     output = {
         "cards": data
     }
@@ -79,6 +119,7 @@ def getcards():
 # API for making and validating new cards
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
+    wrapper = sqliteWrapper()
     requestinput = request.get_json()
     validationschema = CardSchema()
     try:
@@ -101,17 +142,19 @@ def makecard():
     if db.search(search.id == id):
         print("invalididerror")
         return jsonify({"error":"invalididerror"}), 400
-    with transaction(db) as tr:
-        tr.insert({
-            "id": id,
-            "title": title,
-            "description": description,
-            "difficulty": difficulty
-        })
+    # with transaction(db) as tr:
+    #     tr.insert({
+    #         "id": id,
+    #         "title": title,
+    #         "description": description,
+    #         "difficulty": difficulty
+    #     })
+    wrapper.writeCards(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # Slightly modified new card api for editing
 @app.route("/api/editcard",methods=["POST"])
 def editcard():
+    wrapper = sqliteWrapper()
     requestinput = request.get_json()
     validationschema = CardSchema()
     try:
@@ -131,14 +174,15 @@ def editcard():
         print("idlengtherror")
         return jsonify({"error":"idlengtherror"}), 400
     search = Query()
-    with transaction(db) as tr:
-        tr.remove(where("id") == requestinput["id"])
-        tr.insert({
-            "id": id,
-            "title": title,
-            "description": description,
-            "difficulty": difficulty
-        })
+    # with transaction(db) as tr:
+    #     tr.remove(where("id") == requestinput["id"])
+    #     tr.insert({
+    #         "id": id,
+    #         "title": title,
+    #         "description": description,
+    #         "difficulty": difficulty
+    #     })
+    wrapper.editCard(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # if __name__ == "__main__":
 #     app.run()

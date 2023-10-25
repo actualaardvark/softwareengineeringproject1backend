@@ -6,3 +6,4 @@ dist
 build
 app.spec
 cards.db
+cards.db-journal
