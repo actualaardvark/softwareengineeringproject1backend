@@ -5,7 +5,7 @@ var beginningscore;
 // Get cards and update html content
 async function getCardJSON(){
     const response = await fetch(window.location.href + "api/getcards", {method: "POST"}); 
-    return await response.json();;
+    return await response.json();
 }
 function constructCard(id, title, difficulty, description, locked){
     var taskcarddiv = document.createElement("div");
@@ -64,27 +64,30 @@ function getCards(){
     var data = result;
     carddata = [];
     var priorityindex = 0;
+    console.log(data["cards"][priorityindex]);
     for (let i = 0; i < data["cards"].length; i++) {
-        if (data["cards"][priorityindex]["difficulty"] < data["cards"][i]["difficulty"] && data["cards"][i]["difficulty"] < beginningscore){
+        if (data["cards"][priorityindex]["difficulty:"] < data["cards"][i]["difficulty:"] && data["cards"][i]["difficulty:"] <= beginningscore){
             priorityindex = i;
         }
         carddata.push(data["cards"][i])
     }
     var documentbody = ""
+    var lockedbody = ""
     for (let i = 0; i < carddata.length; i++) {
         if (i != priorityindex){
-            if (carddata[i]["difficulty"] <= beginningscore){
-                documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);
+            console.log(carddata[i]["difficulty:"])
+            if (carddata[i]["difficulty:"] <= beginningscore){
+                documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty:"], carddata[i]["description"], false);
             } else {
-                documentbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], true);
+                lockedbody += constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty:"], carddata[i]["description"], true);
             }
         } else {
             // Priority (Most difficult unlocked) Card Placement
-            document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1>' + constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty"], carddata[i]["description"], false);;
+            document.getElementById('priority').innerHTML = '<h1 class="priorityheader">Priority:</h1>' + constructCard(carddata[i]["id"], carddata[i]["title"], carddata[i]["difficulty:"], carddata[i]["description"], false);;
         }
     }
     // Shows startup and completed message if nothing in the card queue
-    document.getElementById('body').innerHTML = documentbody;
+    document.getElementById('body').innerHTML = documentbody += lockedbody;
     var x = typeof data["cards"][priorityindex];
     if(document.getElementById('body').innerHTML  == '' && x == "undefined"){
         document.getElementById("priority").style.display = "none";
