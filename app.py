@@ -23,11 +23,11 @@ app = Flask(__name__)
 # Create/Register new tinydb
 db = TinyDB('db.json')
 
-databaseconnection = sqlite3.connect("cards.db")
-cursor = databaseconnection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS cards (id TEXT, title TEXT, difficulty TEXT, description TEXT);")
-
 class sqliteWrapper():
+    def __init__(self):
+        databaseconnection = sqlite3.connect("cards.db")
+        cursor = databaseconnection.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS cards (id TEXT, title TEXT, difficulty TEXT, description TEXT);")
     def writeCards(self, id, title, difficulty, description):
         databaseconnection = sqlite3.connect("cards.db")
         cursor = databaseconnection.cursor()
