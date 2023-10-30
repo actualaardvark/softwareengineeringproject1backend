@@ -8,8 +8,6 @@ from marshmallow import Schema, fields, ValidationError
 import random
 # String for generating ids and general string manipulation
 import string
-# TinyRecord as a Wrapper to Prevent Flask's Multithreading from Breaking TinyDB
-from tinyrecord import transaction
 # Webbrowser for Browser Tab Opening
 import webbrowser
 # flask ui framework (hooks into chromium install)
