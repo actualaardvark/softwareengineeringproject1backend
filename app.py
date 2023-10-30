@@ -108,7 +108,6 @@ def removecard():
 def getcards():
     wrapper = sqliteWrapper()
     print(wrapper.getCards())
-    # data = db.all()
     data = wrapper.getCards()
     print(data)
     output = {
