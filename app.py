@@ -63,7 +63,7 @@ class sqliteWrapper():
 
 # Set length of card ids
 idlength = 16
-# Validation schemes for marshmallow
+# Validation schemas for marshmallow
 class CardSchema(Schema):
     id = fields.String(required=True)
     difficulty = fields.Integer(required=True)
