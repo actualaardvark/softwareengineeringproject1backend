@@ -142,13 +142,6 @@ def makecard():
     if db.search(search.id == id):
         print("invalididerror")
         return jsonify({"error":"invalididerror"}), 400
-    # with transaction(db) as tr:
-    #     tr.insert({
-    #         "id": id,
-    #         "title": title,
-    #         "description": description,
-    #         "difficulty": difficulty
-    #     })
     wrapper.writeCards(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # Slightly modified new card api for editing
