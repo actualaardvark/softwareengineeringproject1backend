@@ -174,14 +174,6 @@ def editcard():
         print("idlengtherror")
         return jsonify({"error":"idlengtherror"}), 400
     search = Query()
-    # with transaction(db) as tr:
-    #     tr.remove(where("id") == requestinput["id"])
-    #     tr.insert({
-    #         "id": id,
-    #         "title": title,
-    #         "description": description,
-    #         "difficulty": difficulty
-    #     })
     wrapper.editCard(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # if __name__ == "__main__":
