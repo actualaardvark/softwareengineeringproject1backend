@@ -97,8 +97,6 @@ def removecard():
     if len(requestinput["id"]) != 16:
         return "idlengtherror", 400
     print(requestinput)
-    with transaction(db) as tr:
-        tr.remove(where("id") == requestinput["id"])
     wrapper.deleteCard(requestinput["id"])
     return jsonify({"error":"success"}), 200
 # API for getting a complete list of cards. Returns as JSON to by parsed by JS
