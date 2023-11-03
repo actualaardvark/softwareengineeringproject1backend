@@ -229,7 +229,7 @@ async function saveEdit(){
     var outputjson = await output.json();
     getCards();
     hideModal();
-    // Error handling
+    // error handling
     if (outputjson["error"] == "keyschemavalidationerror"){
         document.getElementById("errortitle").innerText = "Key Schema Error";
         document.getElementById("errordescription").innerText = "Make sure you filled in all of the form fields. If this issues persists, contact the developer.";
