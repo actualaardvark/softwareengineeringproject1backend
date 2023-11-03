@@ -164,8 +164,7 @@ def editcard():
     search = Query()
     wrapper.editCard(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
-# if __name__ == "__main__":
-#     app.run()
+
 if __name__ == "__main__":
   # If you are debugging you can do that in the browser:
   # app.run()
