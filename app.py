@@ -63,6 +63,10 @@ class sqliteWrapper():
 idlength = 16
 # Validation schemas for marshmallow
 class CardSchema(Schema):
+    difficulty = fields.Integer(required=True)
+    description = fields.String(required=True)
+    title = fields.String(required=True)
+class EditCardSchema(Schema):
     id = fields.String(required=True)
     difficulty = fields.Integer(required=True)
     description = fields.String(required=True)
@@ -81,7 +85,6 @@ def getid():
     while db.search(search.id == id):
         id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     output = {"id": id}
-    print(output)
     return jsonify(output)
 # API for removing card from database by id
 @app.route("/api/removecard", methods=["POST"])
@@ -114,6 +117,10 @@ def getcards():
 # API for making and validating new cards
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
+    id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
+    search = Query()
+    while db.search(search.id == id):
+        id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     wrapper = sqliteWrapper()
     requestinput = request.get_json()
     validationschema = CardSchema()
@@ -123,7 +130,6 @@ def makecard():
         print("keyschemavalidationerror")
         return jsonify({"error":"keyschemavalidationerror"}), 400
     print(requestinput)
-    id = requestinput["id"]
     title = requestinput["title"]
     description = requestinput["description"]
     difficulty = int(requestinput["difficulty"])
@@ -134,9 +140,6 @@ def makecard():
         print("idlengtherror")
         return jsonify({"error":"idlengtherror"}), 400
     search = Query()
-    if db.search(search.id == id):
-        print("invalididerror")
-        return jsonify({"error":"invalididerror"}), 400
     wrapper.writeCards(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # Slightly modified new card api for editing
@@ -144,7 +147,7 @@ def makecard():
 def editcard():
     wrapper = sqliteWrapper()
     requestinput = request.get_json()
-    validationschema = CardSchema()
+    validationschema = EditCardSchema()
     try:
         validationresult = validationschema.load(requestinput)
     except ValidationError as err:

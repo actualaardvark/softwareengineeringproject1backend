@@ -158,7 +158,6 @@ async function saveCard(){
     var output = await fetch(window.location.href + "api/makecard", {
         method: "POST",
         body: JSON.stringify({
-            id: id,
             title: document.getElementById("titleinput").value,
             description: document.getElementById("descriptioninput").value,
             difficulty: document.getElementById("difficultyinput").value
@@ -214,6 +213,7 @@ function editCard(element){
 // writes the edit to the html + database
 async function saveEdit(){
     id = document.getElementById("idattach").innerText
+    console.log(id);
     var output = await fetch(window.location.href + "api/editcard", {
         method: "POST",
         body: JSON.stringify({
