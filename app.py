@@ -1,7 +1,5 @@
 # Flask Web Framework
 from flask import Flask, request, render_template, jsonify
-# Marshmallow for API Validation
-from marshmallow import Schema, fields, ValidationError
 # Random for Generating Random Numbers
 import random
 # String for generating ids and general string manipulation
@@ -13,23 +11,13 @@ from flaskwebgui import FlaskUI
 
 from sqlitewrapper import sqliteWrapper
 
+from cardvalidation import *
+
 #Instantiate flask app
 app = Flask(__name__)
 
 # Set length of card ids
 idlength = 16
-# Validation schemas for marshmallow
-class CardSchema(Schema):
-    difficulty = fields.Integer(required=True)
-    description = fields.String(required=True)
-    title = fields.String(required=True)
-class EditCardSchema(Schema):
-    id = fields.String(required=True)
-    difficulty = fields.Integer(required=True)
-    description = fields.String(required=True)
-    title = fields.String(required=True)
-class RemoveCardSchema(Schema):
-    id = fields.String(required=True)
 #Return main page
 @app.route("/")
 def index():
@@ -38,7 +26,6 @@ def index():
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
     wrapper = sqliteWrapper()
-    search = Query()
     requestinput = request.get_json()
     validationschema = RemoveCardSchema()
     try:
