@@ -1,0 +1,6 @@
+/* define basic color variables */
+:root{
+    --bg-color: #191919;
+    --card-bg-color: #232323;
+    --card-title-text-color: #f2f2f2;
+}
