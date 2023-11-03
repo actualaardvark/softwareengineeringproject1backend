@@ -1,7 +1,5 @@
 # Flask Web Framework
 from flask import Flask, request, render_template, jsonify
-# Tinydb JSON Database
-from tinydb import TinyDB, Query, where
 # Marshmallow for API Validation
 from marshmallow import Schema, fields, ValidationError
 # Random for Generating Random Numbers
@@ -17,8 +15,6 @@ from sqlitewrapper import sqliteWrapper
 
 #Instantiate flask app
 app = Flask(__name__)
-# Create/Register new tinydb
-db = TinyDB('db.json')
 
 # Set length of card ids
 idlength = 16
@@ -38,15 +34,6 @@ class RemoveCardSchema(Schema):
 @app.route("/")
 def index():
     return render_template("index.html")
-# Gets valid id for card. Could be replaced later
-@app.route("/api/getid", methods=["POST"])
-def getid():
-    id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    search = Query()
-    while db.search(search.id == id):
-        id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    output = {"id": id}
-    return jsonify(output)
 # API for removing card from database by id
 @app.route("/api/removecard", methods=["POST"])
 def removecard():
@@ -79,9 +66,9 @@ def getcards():
 @app.route("/api/makecard",methods=["POST"])
 def makecard():
     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
-    search = Query()
-    while db.search(search.id == id):
-        id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
+    # search = Query()
+    # while db.search(search.id == id):
+    #     id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=idlength)).lower()
     wrapper = sqliteWrapper()
     requestinput = request.get_json()
     validationschema = CardSchema()
@@ -100,7 +87,6 @@ def makecard():
     if len(id) != 16:
         print("idlengtherror")
         return jsonify({"error":"idlengtherror"}), 400
-    search = Query()
     wrapper.writeCards(id, title, difficulty, description)
     return jsonify({"error":"success"}), 200
 # Slightly modified new card api for editing

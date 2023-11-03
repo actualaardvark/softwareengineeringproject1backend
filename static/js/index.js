@@ -152,9 +152,9 @@ var createCard = function(){
 }
 // What I said before, but more of it
 async function saveCard(){
-    const response = await fetch(window.location.href + "api/getid", {method: "POST"});
-    var data = await response.json();
-    var id = data["id"];
+    // const response = await fetch(window.location.href + "api/getid", {method: "POST"});
+    // var data = await response.json();
+    // var id = data["id"];
     var output = await fetch(window.location.href + "api/makecard", {
         method: "POST",
         body: JSON.stringify({
