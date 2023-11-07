@@ -19,7 +19,7 @@ A simple app for managing tasks with Flask
 
 ### environment.sh
 
-``environment.sh`` is activated using the command ``source environment.sh`` and activates the virtual machine created by ``setup.sh``. It also sets two Flask environment variables to enable debug mode.
+``environment.sh`` is activated using the command ``source environment.sh`` and activates the virtual environment created by ``setup.sh``. It also sets two Flask environment variables to enable debug mode.
 
 ### build.sh
 
