@@ -132,7 +132,7 @@ function createWaterLevel() {
     waterLevel.style.width = '100%';
     waterLevel.style.height = '5%';
     waterLevel.style.zIndex = '0';
-    waterLevel.style.backgroundColor = "rgba(38, 219, 29)"
+    waterLevel.style.backgroundColor = "rgba(255, 255, 255)"
     waterLevel.style.transition = 'all 1.0s'; // Adjust the transition speed as needed
     document.body.appendChild(waterLevel);
 }
@@ -150,13 +150,15 @@ function taskCompleted(diff = 1) {
 
 function calculateColor(height) {
     // Define color transitions based on the water level height
-    var colorStart = [100, 0, 100];
-    var colorEnd = [255,0,0]; // Red at the top
+    var colorStart = [200, 200, 200];
+    //var colorEnd = [255,0,0]; // Red at the top
+    //random color
+    var colorEnd = [Math.floor(Math.random() * 155)+70,Math.floor(Math.random() * 155)+70,Math.floor(Math.random() * 155)+70];
     var color = colorStart.map((start, index) => {
         var end = colorEnd[index];
         return start + (end - start) * (height / 100);
     });
-    return 'rgb(' + color.join(',') + ',0.5)';
+    return 'rgb(' + color.join(',') + ')';
 }
 
 function calculateColorR(height) {
