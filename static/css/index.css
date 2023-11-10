@@ -23,6 +23,7 @@ body, body > span{
     width:100%;
     padding: 0%;
     margin: 0%;
+    z-index: 12;
 }
 /* the one card in the priority section */
 .prioritycard{
@@ -48,6 +49,7 @@ body, body > span{
     background-color: var(--card-title-text-color);
     border-style: none;
     cursor: pointer;
+    margin-top: 100px;
 }
 /* "Priority:" header */
 .priorityheader{
@@ -68,6 +70,7 @@ body, body > span{
     margin: 2%;
     flex-grow: 0;
     overflow: hidden;
+    z-index: 10;
 }
 /* task card title */
 .taskcardtitle{
@@ -134,6 +137,7 @@ body, body > span{
     border-style: solid;
     border-radius: 8px;
     border-color: var(--card-title-text-color);
+    position: relative;
 }
 /* taskcardbutton background color change on hover */
 .taskcardbutton:hover{
@@ -153,6 +157,7 @@ body, body > span{
 .blurlock .blurcontainer{
     filter: blur(16px) drop-shadow(0px 0px 14px #000000) brightness(0.5);
     pointer-events: visible;
+    z-index: 14;
 }
 /* locked taskcard special css */
 .blurlock {
@@ -302,6 +307,7 @@ body, body > span{
     bottom: 0;
     width: 100%;
     height: 100%;
+    z-index: 9;
 }
 /* error text container */
 .errorcontainer{
@@ -366,4 +372,25 @@ body, body > span{
 .githublink > a{
     color: var(--card-bg-color);
     font-size: 1vw;
+}
+
+.energyDisplay{
+    position: absolute;
+    top: 100px;
+    width: 200px;
+    height: 500px;
+    pointer-events: none;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    font-family: 'BloggerSansMedium';
+    font-size: 2vw;
+    text-align: center;
+    z-index: 12;
+
+
+}
+
+.waterLevel{
+    z-index: 5;
 }

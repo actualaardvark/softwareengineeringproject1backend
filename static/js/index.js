@@ -8,6 +8,7 @@ async function getCardJSON(){
     return await response.json();
 }
 function constructCard(id, title, difficulty, description, locked){
+
     var taskcarddiv = document.createElement("div");
     taskcarddiv.setAttribute("id", id);
     taskcarddiv.setAttribute("class", "taskcard");
@@ -106,11 +107,80 @@ function saveEnergy(){
     document.getElementById("spoonsinput").value = 5;
 }
 function showEnergy(){
-    document.getElementById("energymodal").style.display = "block";
+    document.getElementById("energymodal").style.display = "flex";
+    document.getElementById("energymodal").style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    //document.getElementById("createCardButton").style.marginTop  = "100px"
+    console.log("testing")
 }
+
+// function createEnergyDisplay(){
+//     var energyDisplay = document.createElement("div");
+//     energyDisplay.id = "energydisplay";
+//     energyDisplay.style.position = 'absolute';
+//     energyDisplay.style.border = '2px solid black';
+//     document.body.appendChild(energyDisplay);
+// }
+
+
+
+function createWaterLevel() {
+    var waterLevel = document.createElement("div");
+    waterLevel.id = "waterLevel";
+    waterLevel.style.position = 'fixed';
+    waterLevel.style.bottom = '0px';
+    waterLevel.style.left = '0';
+    waterLevel.style.width = '100%';
+    waterLevel.style.height = '5%';
+    waterLevel.style.zIndex = '0';
+    waterLevel.style.backgroundColor = "rgba(38, 219, 29)"
+    waterLevel.style.transition = 'all 1.0s'; // Adjust the transition speed as needed
+    document.body.appendChild(waterLevel);
+}
+
+// Function to update the water level based on the progress
+function taskCompleted(diff = 1) {
+    var waterLevel = document.getElementById('waterLevel');
+    var currentHeight = waterLevel.style.height ? parseFloat(waterLevel.style.height) : 0;
+    if (currentHeight < 100) {
+        var newHeight = currentHeight + 5*diff; // You can adjust this value based on the progress
+        waterLevel.style.height = newHeight + '%';
+        waterLevel.style.backgroundColor = calculateColor(newHeight);
+    }
+}
+
+function calculateColor(height) {
+    // Define color transitions based on the water level height
+    var colorStart = [100, 0, 100];
+    var colorEnd = [255,0,0]; // Red at the top
+    var color = colorStart.map((start, index) => {
+        var end = colorEnd[index];
+        return start + (end - start) * (height / 100);
+    });
+    return 'rgb(' + color.join(',') + ',0.5)';
+}
+
+function calculateColorR(height) {
+    // Define color transition based on the water level height
+    var hue = height * 5; // Change this value to adjust the speed of the color transition
+    return 'hsl(' + hue + ', 100%, 50%)';
+}
+
+// Call the createWaterLevel function to initialize the water level display
+createWaterLevel();
+
+// Add event listener to window object to move waterLevel on scroll
+// window.addEventListener('scroll', function() {
+//     var waterLevel = document.getElementById('waterLevel');
+//     var heightOfLastCard = document.getElementById('body').lastChild.position;
+//     console.log(heightOfLastCard)
+//     waterLevel.style.bottom = heightOfLastCard + 'px';
+// });
+
+
 
 // Sends request to delete card and plays CSS remove animation
 async function removeCard(element){
+    taskCompleted(parseInt(element.parentElement.parentElement.childNodes[1].childNodes[0].innerText));
     var removeCardTarget = await fetch(window.location.href + "api/removecard", {
         method: "POST",
         body: JSON.stringify({
@@ -140,7 +210,7 @@ var hideModal = function(){
     document.getElementById("titleinput").value = ""
 };
 // Hides the modal if clicked outside of while open
-window.onclick = function(event) {
+window.onmousedown = function(event) {
     if (event.target == modal) {
       hideModal();
     }
