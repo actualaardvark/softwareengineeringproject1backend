@@ -44,3 +44,5 @@ db.json
 __pycache__
 
 venv
+
+.elixir_ls
