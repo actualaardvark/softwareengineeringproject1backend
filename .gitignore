@@ -40,3 +40,5 @@ npm-debug.log
 *.db-*
 
 db.json
+
+__pycache__
