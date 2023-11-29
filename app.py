@@ -6,8 +6,6 @@ import random
 import string
 # Webbrowser for Browser Tab Opening
 import webbrowser
-# flask ui framework (hooks into chromium install)
-from flaskwebgui import FlaskUI
 
 from sqlitewrapper import sqliteWrapper
 
