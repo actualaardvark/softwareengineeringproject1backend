@@ -57,8 +57,8 @@ A script that enables a suitable environment for developing this codebase on Nix
 
 ## Tasks
 
-- [ ] Javascript-powered modal dialogues
-- [ ] Fix CSS scaling issues
+- [x] Javascript-powered modal dialogues
+- [x] Fix CSS scaling issues
 - [ ] Retool API testing framework
 - [x] Port database to sqlite3 from tinydb/tinyrecord
 - [ ] Move to full web app from flaskwebgui
